@@ -1,0 +1,203 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:16
+    container_name: suvidha-postgres
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: suvidha
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./migrations:/docker-entrypoint-initdb.d
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  redis:
+    image: redis:7-alpine
+    container_name: suvidha-redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    command: redis-server --appendonly yes
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  minio:
+    image: minio/minio
+    container_name: suvidha-minio
+    environment:
+      MINIO_ROOT_USER: minioadmin
+      MINIO_ROOT_PASSWORD: minioadmin
+    ports:
+      - "9000:9000"
+      - "9001:9001"
+    volumes:
+      - minio_data:/data
+    command: server /data --console-address ":9001"
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:9000/minio/health/live"]
+      interval: 30s
+      timeout: 20s
+      retries: 3
+
+  auth-service:
+    build:
+      context: ./auth-service
+      dockerfile: Dockerfile
+    container_name: suvidha-auth
+    ports:
+      - "3001:3001"
+    environment:
+      - DATABASE_URL=postgresql://postgres:postgres@postgres:5432/suvidha
+      - REDIS_URL=redis://redis:6379
+      - JWT_PRIVATE_KEY_PEM=${JWT_PRIVATE_KEY_PEM}
+      - JWT_PUBLIC_KEY_PEM=${JWT_PUBLIC_KEY_PEM}
+      - OTP_HMAC_SECRET=${OTP_HMAC_SECRET}
+      - RUST_LOG=info
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+
+  payment-service:
+    build:
+      context: ./payment-service
+      dockerfile: Dockerfile
+    container_name: suvidha-payment
+    ports:
+      - "3002:3002"
+    environment:
+      - DATABASE_URL=postgresql://postgres:postgres@postgres:5432/suvidha
+      - REDIS_URL=redis://redis:6379
+      - NPCI_WEBHOOK_SECRET=${NPCI_WEBHOOK_SECRET}
+      - RUST_LOG=info
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+
+  utility-service:
+    build:
+      context: ./utility-service
+      dockerfile: Dockerfile
+    container_name: suvidha-utility
+    ports:
+      - "3003:3003"
+    environment:
+      - DATABASE_URL=postgresql://postgres:postgres@postgres:5432/suvidha
+      - REDIS_URL=redis://redis:6379
+      - RUST_LOG=info
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+
+  grievance-service:
+    build:
+      context: ./grievance-service
+      dockerfile: Dockerfile
+    container_name: suvidha-grievance
+    ports:
+      - "3004:3004"
+    environment:
+      - DATABASE_URL=postgresql://postgres:postgres@postgres:5432/suvidha
+      - RUST_LOG=info
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+  document-service:
+    build:
+      context: ./document-service
+      dockerfile: Dockerfile
+    container_name: suvidha-document
+    ports:
+      - "3005:3005"
+    environment:
+      - DATABASE_URL=postgresql://postgres:postgres@postgres:5432/suvidha
+      - RUST_LOG=info
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+  notification-service:
+    build:
+      context: ./notification-service
+      dockerfile: Dockerfile
+    container_name: suvidha-notification
+    ports:
+      - "3006:3006"
+    environment:
+      - DATABASE_URL=postgresql://postgres:postgres@postgres:5432/suvidha
+      - RUST_LOG=info
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+  session-service:
+    build:
+      context: ./session-service
+      dockerfile: Dockerfile
+    container_name: suvidha-session
+    ports:
+      - "3007:3007"
+    environment:
+      - REDIS_URL=redis://redis:6379
+      - RUST_LOG=info
+    depends_on:
+      redis:
+        condition: service_healthy
+
+  kiosk-service:
+    build:
+      context: ./kiosk-service
+      dockerfile: Dockerfile
+    container_name: suvidha-kiosk
+    ports:
+      - "3008:3008"
+    environment:
+      - DATABASE_URL=postgresql://postgres:postgres@postgres:5432/suvidha
+      - REDIS_URL=redis://redis:6379
+      - RUST_LOG=info
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+
+  nginx:
+    image: nginx:alpine
+    container_name: suvidha-nginx
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro
+    depends_on:
+      - auth-service
+      - payment-service
+      - utility-service
+      - grievance-service
+      - document-service
+      - notification-service
+      - session-service
+      - kiosk-service
+
+volumes:
+  postgres_data:
+  redis_data:
+  minio_data:

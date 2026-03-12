@@ -1,0 +1,62 @@
+# Rust build artifacts
+/target/
+**/target/
+
+# Cargo lock file (optional - uncomment if you want to ignore it)
+# Cargo.lock
+
+# Environment files
+.env
+.env.local
+.env.*.local
+
+# Keys and secrets
+keys/
+*.pem
+*.key
+*.crt
+
+# IDE and editor files
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Rust analyzer
+.rust-analyzer/
+
+# Build output
+**/*.rs.bk
+*.pdb
+
+# Test coverage
+*.gcno
+*.gcda
+*.lcov
+tarpaulin-report.html
+cobertura.xml
+
+# Logs
+*.log
+logs/
+
+# Temporary files
+tmp/
+temp/
+*.tmp
+
+# Docker
+docker-compose.override.yml
+
+# K6 test results
+k6-results/
+
+# Database files
+*.db
+*.sqlite
+*.sqlite3
+
+# Generated documentation
+docs/generated/
