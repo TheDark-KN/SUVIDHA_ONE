@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Suvidha One - Bill Payment</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;500;700;900&amp;family=Public+Sans:wght@400;500;700;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              colors: {
+                "tertiary-fixed": "#a3f4bc",
+                "on-error-container": "#93000a",
+                "on-primary-fixed-variant": "#204194",
+                "on-primary-fixed": "#00174c",
+                "error-container": "#ffdad6",
+                "on-secondary": "#ffffff",
+                "primary-container": "#1a3c8f",
+                "surface-container-lowest": "#ffffff",
+                "on-surface-variant": "#444651",
+                "tertiary-container": "#004d29",
+                "on-tertiary-fixed": "#00210f",
+                "on-tertiary-container": "#70bf8b",
+                "surface-container-highest": "#e0e3e6",
+                "background": "#f7f9fc",
+                "surface-bright": "#f7f9fc",
+                "tertiary-fixed-dim": "#88d8a1",
+                "tertiary": "#00341a",
+                "on-primary-container": "#92abff",
+                "surface-container": "#eceef1",
+                "surface-variant": "#e0e3e6",
+                "on-secondary-container": "#541d00",
+                "surface-dim": "#d8dadd",
+                "on-tertiary": "#ffffff",
+                "on-primary": "#ffffff",
+                "surface-container-low": "#f2f4f7",
+                "on-secondary-fixed-variant": "#7c2e00",
+                "secondary-container": "#fe6500",
+                "primary": "#00256f",
+                "on-tertiary-fixed-variant": "#00522d",
+                "on-surface": "#191c1e",
+                "on-error": "#ffffff",
+                "secondary-fixed-dim": "#ffb596",
+                "surface": "#f7f9fc",
+                "on-background": "#191c1e",
+                "outline-variant": "#c4c6d3",
+                "secondary-fixed": "#ffdbcd",
+                "inverse-primary": "#b4c5ff",
+                "surface-container-high": "#e6e8eb",
+                "outline": "#747683",
+                "primary-fixed-dim": "#b4c5ff",
+                "primary-fixed": "#dbe1ff",
+                "on-secondary-fixed": "#360f00",
+                "error": "#ba1a1a",
+                "inverse-surface": "#2d3133",
+                "inverse-on-surface": "#eff1f4",
+                "surface-tint": "#3c5aad",
+                "secondary": "#a33e00"
+              },
+              fontFamily: {
+                "headline": ["Public Sans"],
+                "body": ["Public Sans"],
+                "label": ["Public Sans"]
+              },
+              borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+            },
+          },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 48;
+            font-size: 48px;
+        }
+        .filled-icon {
+            font-variation-settings: 'FILL' 1;
+        }
+        .kiosk-shadow {
+            box-shadow: 0 32px 64px -12px rgba(0, 37, 111, 0.08);
+        }
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background font-body min-h-screen pb-[180px]">
+<!-- Top Navigation Bar -->
+<header class="bg-white/80 dark:bg-slate-900/80 backdrop-blur-md shadow-xl shadow-blue-900/5 docked full-width top-0 sticky z-50 flex justify-between items-center w-full px-16 h-[120px]">
+<div class="flex items-center gap-6">
+<span class="text-5xl font-black text-blue-900 dark:text-blue-100 font-['Noto_Sans']">Suvidha One</span>
+</div>
+<div class="flex items-center gap-12">
+<div class="relative">
+<span class="material-symbols-outlined text-blue-900 dark:text-blue-400 text-6xl" data-icon="shopping_cart">shopping_cart</span>
+<span class="absolute -top-2 -right-2 bg-secondary text-white text-2xl font-bold px-3 py-1 rounded-full border-4 border-white">2</span>
+</div>
+<div class="flex gap-8">
+<span class="material-symbols-outlined text-blue-900 dark:text-blue-400 hover:bg-slate-100 dark:hover:bg-slate-800 p-4 rounded-full transition-transform active:scale-95" data-icon="language">language</span>
+<span class="material-symbols-outlined text-blue-900 dark:text-blue-400 hover:bg-slate-100 dark:hover:bg-slate-800 p-4 rounded-full transition-transform active:scale-95" data-icon="record_voice_over">record_voice_over</span>
+<span class="material-symbols-outlined text-blue-900 dark:text-blue-400 hover:bg-slate-100 dark:hover:bg-slate-800 p-4 rounded-full transition-transform active:scale-95" data-icon="account_circle">account_circle</span>
+</div>
+</div>
+</header>
+<main class="max-w-7xl mx-auto px-16 pt-16">
+<!-- Page Title Section -->
+<div class="mb-16">
+<div class="flex items-center gap-6 mb-4">
+<span class="material-symbols-outlined text-primary text-6xl" data-icon="bolt">bolt</span>
+<h1 class="text-[72px] font-black leading-tight text-primary font-headline">
+                    Electricity Bill / बिजली बिल
+                </h1>
+</div>
+<p class="text-[48px] text-on-surface-variant font-medium">Select bills to proceed with payment</p>
+</div>
+<!-- Bill Cards Grid (Bento Style Layout) -->
+<div class="grid grid-cols-1 gap-12">
+<!-- Card 1: Tata Power -->
+<div class="bg-surface-container-lowest kiosk-shadow rounded-[40px] p-12 flex items-center justify-between border-l-[16px] border-primary group active:scale-[0.99] transition-all">
+<div class="flex items-center gap-12">
+<!-- Custom 60x60 Checkbox -->
+<div class="w-[60px] h-[60px] border-4 border-primary rounded-xl flex items-center justify-center bg-primary">
+<span class="material-symbols-outlined text-white text-5xl" data-icon="check">check</span>
+</div>
+<div class="space-y-2">
+<div class="flex items-center gap-4">
+<span class="text-[32px] font-bold text-primary">Tata Power</span>
+<span class="bg-primary-container text-white text-xl px-4 py-1 rounded-full">DELHI</span>
+</div>
+<div class="flex flex-col gap-1">
+<span class="text-[28px] text-on-surface-variant font-medium uppercase tracking-wider">Consumer ID: 5002938471</span>
+<span class="text-[28px] text-on-surface-variant">Due Date: 24 Oct 2023</span>
+</div>
+</div>
+</div>
+<div class="text-right">
+<div class="text-[36px] font-black text-primary mb-2">₹1,250.00</div>
+<span class="text-error font-bold text-2xl px-4 py-2 bg-error-container rounded-lg">OVERDUE</span>
+</div>
+</div>
+<!-- Card 2: BSES Yamuna -->
+<div class="bg-surface-container-lowest kiosk-shadow rounded-[40px] p-12 flex items-center justify-between border-l-[16px] border-outline-variant active:scale-[0.99] transition-all">
+<div class="flex items-center gap-12">
+<!-- Custom 60x60 Checkbox -->
+<div class="w-[60px] h-[60px] border-4 border-outline rounded-xl flex items-center justify-center bg-white">
+<!-- Unchecked State -->
+</div>
+<div class="space-y-2">
+<div class="flex items-center gap-4">
+<span class="text-[32px] font-bold text-primary">BSES Yamuna</span>
+<span class="bg-primary-container text-white text-xl px-4 py-1 rounded-full">DELHI</span>
+</div>
+<div class="flex flex-col gap-1">
+<span class="text-[28px] text-on-surface-variant font-medium uppercase tracking-wider">Consumer ID: 1009283745</span>
+<span class="text-[28px] text-on-surface-variant">Due Date: 12 Nov 2023</span>
+</div>
+</div>
+</div>
+<div class="text-right">
+<div class="text-[36px] font-black text-primary mb-2">₹800.00</div>
+<span class="text-on-surface-variant font-bold text-2xl px-4 py-2 bg-surface-container-highest rounded-lg">UPCOMING</span>
+</div>
+</div>
+<!-- Accessibility Card / Hint -->
+<div class="mt-8 p-12 bg-primary-container rounded-[40px] flex items-center gap-8 text-on-primary-container">
+<span class="material-symbols-outlined text-6xl" data-icon="info">info</span>
+<p class="text-[32px] font-medium leading-snug">
+                    You can pay multiple bills at once by selecting the checkboxes. 
+                    <br/><span class="opacity-80">एक साथ कई बिलों का भुगतान करने के लिए चेकबॉक्स चुनें।</span>
+</p>
+</div>
+</div>
+</main>
+<!-- Side NavBar (Accessibility) -->
+<nav class="fixed left-0 top-1/2 -translate-y-1/2 z-[60] flex flex-col p-4 bg-black rounded-r-3xl shadow-2xl shadow-black/50">
+<div class="p-4 mb-4 text-center border-b border-white/10">
+<h3 class="text-yellow-400 font-bold text-[24px]">Accessibility</h3>
+</div>
+<button class="flex flex-col items-center justify-center gap-2 p-6 hover:bg-yellow-500 transition-all group active:scale-105 h-[120px]">
+<span class="material-symbols-outlined text-white group-hover:text-black text-5xl" data-icon="contrast">contrast</span>
+<span class="text-white group-hover:text-black font-bold text-lg">Contrast</span>
+</button>
+<button class="flex flex-col items-center justify-center gap-2 p-6 hover:bg-yellow-500 transition-all group active:scale-105 h-[120px]">
+<span class="material-symbols-outlined text-white group-hover:text-black text-5xl" data-icon="format_size">format_size</span>
+<span class="text-white group-hover:text-black font-bold text-lg">Text Size</span>
+</button>
+</nav>
+<!-- Footer Summary & Action -->
+<div class="fixed bottom-[140px] left-0 w-full bg-white shadow-[0_-20px_60px_rgba(0,0,0,0.1)] px-16 py-12 z-40 border-t-4 border-primary/5">
+<div class="max-w-7xl mx-auto flex items-center justify-between">
+<div class="flex items-center gap-12">
+<div class="flex flex-col">
+<span class="text-label-md text-on-surface-variant font-bold uppercase tracking-[4px]">Bills Selected</span>
+<span class="text-[48px] font-black text-primary">02 Items</span>
+</div>
+<div class="w-1 h-20 bg-outline-variant opacity-30"></div>
+<div class="flex flex-col">
+<span class="text-label-md text-on-surface-variant font-bold uppercase tracking-[4px]">Total Payable</span>
+<span class="text-[48px] font-black text-primary">₹2,050.00</span>
+</div>
+</div>
+<button class="bg-gradient-to-br from-secondary to-secondary-container text-white px-16 h-[100px] rounded-xl flex items-center gap-6 shadow-2xl shadow-secondary/40 active:scale-95 transition-all">
+<span class="text-[32px] font-black tracking-widest">PROCEED TO PAY</span>
+<span class="material-symbols-outlined text-5xl" data-icon="arrow_forward">arrow_forward</span>
+</button>
+</div>
+</div>
+<!-- Bottom Navigation Bar -->
+<nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-8 pb-8 pt-4 bg-slate-100 dark:bg-slate-800 border-t-4 border-blue-900/10 shadow-[0_-10px_40px_rgba(0,0,0,0.1)] h-[140px]">
+<button class="flex flex-col items-center justify-center text-blue-900 dark:text-blue-200 px-8 h-[100px] hover:bg-blue-50 dark:hover:bg-blue-900/30 transition-all min-w-[200px]">
+<span class="material-symbols-outlined" data-icon="home">home</span>
+<span class="font-['Noto_Sans'] font-medium text-[32px]">Home</span>
+</button>
+<button class="flex flex-col items-center justify-center text-blue-900 dark:text-blue-200 px-8 h-[100px] hover:bg-blue-50 dark:hover:bg-blue-900/30 transition-all min-w-[200px]">
+<span class="material-symbols-outlined" data-icon="history">history</span>
+<span class="font-['Noto_Sans'] font-medium text-[32px]">History</span>
+</button>
+<button class="flex flex-col items-center justify-center text-blue-900 dark:text-blue-200 px-8 h-[100px] hover:bg-blue-50 dark:hover:bg-blue-900/30 transition-all min-w-[200px]">
+<span class="material-symbols-outlined" data-icon="help">help</span>
+<span class="font-['Noto_Sans'] font-medium text-[32px]">Help</span>
+</button>
+<button class="flex flex-col items-center justify-center text-blue-900 dark:text-blue-200 px-8 h-[100px] hover:bg-blue-50 dark:hover:bg-blue-900/30 transition-all min-w-[200px]">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+<span class="font-['Noto_Sans'] font-medium text-[32px]">Settings</span>
+</button>
+</nav>
+</body></html>

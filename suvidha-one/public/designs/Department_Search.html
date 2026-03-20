@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Department Contacts | विभाग संपर्क</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;700;900&amp;family=Noto+Sans:wght@400;700&amp;family=Noto+Sans+Devanagari:wght@400;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "on-error": "#ffffff",
+              "on-tertiary-fixed-variant": "#00522d",
+              "surface-bright": "#f7f9fc",
+              "surface-container-lowest": "#ffffff",
+              "inverse-on-surface": "#eff1f4",
+              "surface-tint": "#3c5aad",
+              "error": "#ba1a1a",
+              "tertiary-container": "#004d29",
+              "surface-dim": "#d8dadd",
+              "error-container": "#ffdad6",
+              "surface": "#f7f9fc",
+              "on-tertiary": "#ffffff",
+              "on-primary-container": "#92abff",
+              "on-primary": "#ffffff",
+              "tertiary-fixed-dim": "#88d8a1",
+              "on-error-container": "#93000a",
+              "surface-container": "#eceef1",
+              "primary-fixed": "#dbe1ff",
+              "primary-fixed-dim": "#b4c5ff",
+              "outline": "#747683",
+              "on-surface": "#191c1e",
+              "tertiary-fixed": "#a3f4bc",
+              "on-secondary-fixed-variant": "#7c2e00",
+              "outline-variant": "#c4c6d3",
+              "surface-container-highest": "#e0e3e6",
+              "on-secondary": "#ffffff",
+              "secondary": "#a33e00",
+              "on-tertiary-container": "#70bf8b",
+              "surface-container-high": "#e6e8eb",
+              "on-primary-fixed": "#00174c",
+              "background": "#f7f9fc",
+              "secondary-fixed-dim": "#ffb596",
+              "inverse-primary": "#b4c5ff",
+              "surface-container-low": "#f2f4f7",
+              "on-secondary-fixed": "#360f00",
+              "on-secondary-container": "#541d00",
+              "on-primary-fixed-variant": "#204194",
+              "inverse-surface": "#2d3133",
+              "secondary-fixed": "#ffdbcd",
+              "tertiary": "#00341a",
+              "primary": "#00256f",
+              "on-background": "#191c1e",
+              "surface-variant": "#e0e3e6",
+              "primary-container": "#1a3c8f",
+              "on-surface-variant": "#444651",
+              "secondary-container": "#fe6500",
+              "on-tertiary-fixed": "#00210f"
+            },
+            fontFamily: {
+              "public-sans": ["Public Sans", "sans-serif"],
+              "noto-sans": ["Noto Sans", "Noto Sans Devanagari", "sans-serif"],
+              "headline": ["Public Sans", "Noto Sans", "Noto Sans Devanagari"],
+              "body": ["Public Sans", "Noto Sans", "Noto Sans Devanagari"],
+              "label": ["Public Sans", "Noto Sans", "Noto Sans Devanagari"]
+            },
+            borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 48;
+            font-size: 64px;
+        }
+        body {
+            font-family: 'Public Sans', 'Noto Sans', 'Noto Sans Devanagari', sans-serif;
+            background-color: #f7f9fc;
+        }
+        .bento-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(450px, 1fr));
+            gap: 2.75rem;
+        }
+        .search-large-shadow {
+            box-shadow: 0 20px 50px -12px rgba(0, 37, 111, 0.15);
+        }
+    </style>
+</head>
+<body class="bg-surface text-on-surface min-h-screen pb-48">
+<!-- TopNavBar (Updated) -->
+<header class="fixed top-0 w-full z-50 bg-white/80 dark:bg-slate-900/80 backdrop-blur-md border-b-4 border-[#00256f]/10 dark:border-blue-900/20 shadow-xl shadow-blue-900/5 flex justify-between items-center px-16 h-32">
+<div class="text-[48px] font-black text-[#00256f] dark:text-blue-300 font-public-sans tracking-tight">
+        Department Contacts | विभाग संपर्क
+    </div>
+<div class="flex items-center gap-8">
+<!-- Improved Search Bar in TopNavBar -->
+<div class="relative flex items-center bg-surface-container-highest rounded-2xl px-8 h-20 w-[600px] border-2 border-transparent focus-within:border-primary transition-all">
+<span class="material-symbols-outlined text-primary mr-4" style="font-size: 40px;">search</span>
+<input class="bg-transparent border-none focus:ring-0 text-[32px] w-full font-noto-sans text-on-surface font-bold placeholder:font-normal" placeholder="Search departments... / खोजें..." type="text"/>
+<button class="p-2 hover:bg-black/5 rounded-full transition-colors active:scale-90">
+<span class="material-symbols-outlined text-on-surface-variant" data-icon="close" style="font-size: 32px;">close</span>
+</button>
+</div>
+<div class="flex gap-4">
+<button class="p-4 rounded-full hover:bg-slate-100 transition-colors active:scale-95 duration-200">
+<span class="material-symbols-outlined text-primary" data-icon="translate">translate</span>
+</button>
+<button class="p-4 rounded-full hover:bg-slate-100 transition-colors active:scale-95 duration-200">
+<span class="material-symbols-outlined text-primary" data-icon="help_outline">help_outline</span>
+</button>
+</div>
+</div>
+</header>
+<!-- Main Content Canvas -->
+<main class="pt-48 px-16 pb-16 max-w-[1920px] mx-auto">
+<!-- Hero Search Section -->
+<div class="mb-20 flex flex-col items-center text-center">
+<h1 class="text-[72px] font-bold text-primary font-headline leading-tight mb-4">Emergency &amp; Utility Directory</h1>
+<p class="text-[40px] text-on-surface-variant font-noto-sans mb-12">आपातकालीन और उपयोगिता निर्देशिका</p>
+<!-- Large Accessible Search Input -->
+<div class="w-full max-w-4xl relative">
+<div class="flex items-center bg-white dark:bg-slate-800 rounded-[32px] px-10 h-[110px] search-large-shadow border-4 border-primary/10 focus-within:border-primary transition-all">
+<span class="material-symbols-outlined text-primary mr-6" style="font-size: 56px;">search</span>
+<input class="bg-transparent border-none focus:ring-0 text-[44px] w-full font-noto-sans text-on-surface font-black placeholder:text-on-surface-variant/40" placeholder="Type to search... / यहाँ खोजें..." type="text"/>
+<button class="ml-4 p-4 hover:bg-slate-100 dark:hover:bg-slate-700 rounded-full transition-colors active:scale-90">
+<span class="material-symbols-outlined text-on-surface-variant" style="font-size: 48px;">close</span>
+</button>
+</div>
+<!-- Search Suggestions / Popular Departments -->
+<div class="mt-8 flex flex-wrap justify-center gap-4 animate-in fade-in slide-in-from-top-4 duration-500">
+<span class="text-[28px] font-bold text-on-surface-variant self-center mr-2">Popular:</span>
+<button class="bg-primary/5 hover:bg-primary/10 border-2 border-primary/10 px-6 py-3 rounded-full text-[24px] font-bold text-primary transition-all active:scale-95">Fire Dept. | दमकल विभाग</button>
+<button class="bg-primary/5 hover:bg-primary/10 border-2 border-primary/10 px-6 py-3 rounded-full text-[24px] font-bold text-primary transition-all active:scale-95">Ambulance | एम्बुलेंस</button>
+<button class="bg-primary/5 hover:bg-primary/10 border-2 border-primary/10 px-6 py-3 rounded-full text-[24px] font-bold text-primary transition-all active:scale-95">Water | जल विभाग</button>
+<button class="bg-primary/5 hover:bg-primary/10 border-2 border-primary/10 px-6 py-3 rounded-full text-[24px] font-bold text-primary transition-all active:scale-95">Police | पुलिस</button>
+</div>
+</div>
+</div>
+<!-- No Results Placeholder (Hidden by default, shown for mockup context) -->
+<div class="hidden flex-col items-center py-24 text-center">
+<div class="bg-surface-container-highest p-16 rounded-full mb-8">
+<span class="material-symbols-outlined text-on-surface-variant" style="font-size: 120px;">search_off</span>
+</div>
+<h2 class="text-[56px] font-bold text-on-surface">No results found</h2>
+<p class="text-[36px] text-on-surface-variant font-noto-sans mt-2">कोई परिणाम नहीं मिला। कृपया पुनः प्रयास करें।</p>
+</div>
+<!-- Department Grid (Bento Style) -->
+<div class="bento-grid">
+<!-- Card 1: Water & Sewage -->
+<div class="bg-surface-container-low rounded-[32px] p-12 flex flex-col justify-between min-h-[400px] shadow-sm hover:shadow-lg transition-shadow border-b-8 border-primary/20">
+<div class="flex justify-between items-start">
+<div class="bg-primary/10 p-6 rounded-[24px]">
+<span class="material-symbols-outlined text-primary" data-icon="water_drop">water_drop</span>
+</div>
+<div class="bg-surface-container-highest px-6 py-2 rounded-full text-[24px] font-bold text-primary-container">UTILITY</div>
+</div>
+<div>
+<h2 class="text-[48px] font-bold text-on-surface mb-2">Water &amp; Sewage</h2>
+<h3 class="text-[40px] text-on-surface-variant font-noto-sans mb-8">जल एवं सीवरेज</h3>
+<div class="bg-secondary-container rounded-[24px] py-6 px-10 flex items-center justify-between group active:scale-95 transition-transform">
+<span class="text-white text-[48px] font-black tracking-widest">1800-11-2233</span>
+<span class="material-symbols-outlined text-white" data-icon="call" style="font-size: 48px;">call</span>
+</div>
+</div>
+</div>
+<!-- Card 2: Electricity Dept -->
+<div class="bg-surface-container-low rounded-[32px] p-12 flex flex-col justify-between min-h-[400px] shadow-sm hover:shadow-lg transition-shadow border-b-8 border-primary/20">
+<div class="flex justify-between items-start">
+<div class="bg-primary/10 p-6 rounded-[24px]">
+<span class="material-symbols-outlined text-primary" data-icon="bolt">bolt</span>
+</div>
+<div class="bg-surface-container-highest px-6 py-2 rounded-full text-[24px] font-bold text-primary-container">POWER</div>
+</div>
+<div>
+<h2 class="text-[48px] font-bold text-on-surface mb-2">Electricity Dept</h2>
+<h3 class="text-[40px] text-on-surface-variant font-noto-sans mb-8">विद्युत विभाग</h3>
+<div class="bg-secondary-container rounded-[24px] py-6 px-10 flex items-center justify-between active:scale-95 transition-transform">
+<span class="text-white text-[48px] font-black tracking-widest">1800-44-5566</span>
+<span class="material-symbols-outlined text-white" data-icon="call" style="font-size: 48px;">call</span>
+</div>
+</div>
+</div>
+<!-- Card 3: Waste Management -->
+<div class="bg-surface-container-low rounded-[32px] p-12 flex flex-col justify-between min-h-[400px] shadow-sm hover:shadow-lg transition-shadow border-b-8 border-primary/20">
+<div class="flex justify-between items-start">
+<div class="bg-primary/10 p-6 rounded-[24px]">
+<span class="material-symbols-outlined text-primary" data-icon="delete_sweep">delete_sweep</span>
+</div>
+<div class="bg-surface-container-highest px-6 py-2 rounded-full text-[24px] font-bold text-primary-container">CIVIC</div>
+</div>
+<div>
+<h2 class="text-[48px] font-bold text-on-surface mb-2">Waste Management</h2>
+<h3 class="text-[40px] text-on-surface-variant font-noto-sans mb-8">अपशिष्ट प्रबंधन</h3>
+<div class="bg-secondary-container rounded-[24px] py-6 px-10 flex items-center justify-between active:scale-95 transition-transform">
+<span class="text-white text-[48px] font-black tracking-widest">1800-77-8899</span>
+<span class="material-symbols-outlined text-white" data-icon="call" style="font-size: 48px;">call</span>
+</div>
+</div>
+</div>
+<!-- Card 4: Public Safety (Emergency Highlight) -->
+<div class="bg-error-container/30 rounded-[32px] p-12 flex flex-col justify-between min-h-[400px] shadow-sm border-2 border-error/20 hover:shadow-lg transition-shadow relative overflow-hidden">
+<div class="absolute -right-8 -top-8 opacity-5">
+<span class="material-symbols-outlined" style="font-size: 300px;">emergency</span>
+</div>
+<div class="flex justify-between items-start relative z-10">
+<div class="bg-error p-6 rounded-[24px]">
+<span class="material-symbols-outlined text-white" data-icon="local_police">local_police</span>
+</div>
+<div class="bg-error px-6 py-2 rounded-full text-[24px] font-bold text-white uppercase tracking-wider">URGENT</div>
+</div>
+<div class="relative z-10">
+<h2 class="text-[48px] font-bold text-on-surface mb-2">Public Safety</h2>
+<h3 class="text-[40px] text-on-surface-variant font-noto-sans mb-8">सार्वजनिक सुरक्षा</h3>
+<div class="bg-error rounded-[24px] py-6 px-10 flex items-center justify-between active:scale-95 transition-transform shadow-lg">
+<span class="text-white text-[56px] font-black tracking-widest">112 / 100</span>
+<span class="material-symbols-outlined text-white" data-icon="emergency" style="font-size: 64px;">emergency</span>
+</div>
+</div>
+</div>
+<!-- Card 5: Health & Sanitation -->
+<div class="bg-surface-container-low rounded-[32px] p-12 flex flex-col justify-between min-h-[400px] shadow-sm hover:shadow-lg transition-shadow border-b-8 border-primary/20">
+<div class="flex justify-between items-start">
+<div class="bg-primary/10 p-6 rounded-[24px]">
+<span class="material-symbols-outlined text-primary" data-icon="medical_services">medical_services</span>
+</div>
+<div class="bg-surface-container-highest px-6 py-2 rounded-full text-[24px] font-bold text-primary-container">HEALTH</div>
+</div>
+<div>
+<h2 class="text-[48px] font-bold text-on-surface mb-2">Health &amp; Sanitation</h2>
+<h3 class="text-[40px] text-on-surface-variant font-noto-sans mb-8">स्वास्थ्य एवं स्वच्छता</h3>
+<div class="bg-secondary-container rounded-[24px] py-6 px-10 flex items-center justify-between active:scale-95 transition-transform">
+<span class="text-white text-[48px] font-black tracking-widest">1800-22-3344</span>
+<span class="material-symbols-outlined text-white" data-icon="call" style="font-size: 48px;">call</span>
+</div>
+</div>
+</div>
+<!-- Card 6: Municipal Taxes -->
+<div class="bg-surface-container-low rounded-[32px] p-12 flex flex-col justify-between min-h-[400px] shadow-sm hover:shadow-lg transition-shadow border-b-8 border-primary/20">
+<div class="flex justify-between items-start">
+<div class="bg-primary/10 p-6 rounded-[24px]">
+<span class="material-symbols-outlined text-primary" data-icon="payments">payments</span>
+</div>
+<div class="bg-surface-container-highest px-6 py-2 rounded-full text-[24px] font-bold text-primary-container">TAXES</div>
+</div>
+<div>
+<h2 class="text-[48px] font-bold text-on-surface mb-2">Municipal Taxes</h2>
+<h3 class="text-[40px] text-on-surface-variant font-noto-sans mb-8">नगर पालिका कर</h3>
+<div class="bg-secondary-container rounded-[24px] py-6 px-10 flex items-center justify-between active:scale-95 transition-transform">
+<span class="text-white text-[48px] font-black tracking-widest">1800-99-0011</span>
+<span class="material-symbols-outlined text-white" data-icon="call" style="font-size: 48px;">call</span>
+</div>
+</div>
+</div>
+</div>
+<!-- High Contrast Toggle FAB -->
+<div class="fixed right-16 bottom-56 z-50">
+<button class="w-[120px] h-[120px] bg-black rounded-full flex flex-col items-center justify-center text-[#FFD700] shadow-2xl border-4 border-[#FFD700] active:scale-90 transition-transform">
+<span class="material-symbols-outlined" data-icon="contrast" style="font-size: 48px;">contrast</span>
+<span class="text-[20px] font-bold uppercase mt-1">Contrast</span>
+</button>
+</div>
+</main>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 left-0 w-full flex justify-around items-center px-16 pb-8 bg-[#e0e3e6] dark:bg-slate-800 h-40 z-50 rounded-t-[32px] shadow-[0_-8px_32px_rgba(0,0,0,0.1)]">
+<button class="flex flex-col items-center justify-center text-[#00256f] dark:text-slate-300 px-8 py-4 hover:bg-white/50 dark:hover:bg-slate-700 active:scale-90 transition-transform duration-150">
+<span class="material-symbols-outlined" data-icon="home" style="font-size: 48px;">home</span>
+<span class="text-[32px] font-medium font-public-sans mt-2">Home | मुख्य</span>
+</button>
+<button class="flex flex-col items-center justify-center text-[#00256f] dark:text-slate-300 px-8 py-4 hover:bg-white/50 dark:hover:bg-slate-700 active:scale-90 transition-transform duration-150">
+<span class="material-symbols-outlined" data-icon="history" style="font-size: 48px;">history</span>
+<span class="text-[32px] font-medium font-public-sans mt-2">History | इतिहास</span>
+</button>
+<button class="flex flex-col items-center justify-center bg-[#fe6500] text-white rounded-[24px] px-12 py-4 scale-110 shadow-lg active:scale-90 transition-transform duration-150">
+<span class="material-symbols-outlined" data-icon="help_center" style="font-size: 48px; font-variation-settings: 'FILL' 1;">help_center</span>
+<span class="text-[32px] font-medium font-public-sans mt-2">Help | सहायता</span>
+</button>
+<button class="flex flex-col items-center justify-center text-[#00256f] dark:text-slate-300 px-8 py-4 hover:bg-white/50 dark:hover:bg-slate-700 active:scale-90 transition-transform duration-150">
+<span class="material-symbols-outlined" data-icon="settings" style="font-size: 48px;">settings</span>
+<span class="text-[32px] font-medium font-public-sans mt-2">Settings | सेटिंग्ज</span>
+</button>
+</nav>
+<!-- Accessibility Watermark -->
+<div class="fixed left-8 top-1/2 -translate-y-1/2 -rotate-90 pointer-events-none opacity-[0.03]">
+<span class="text-[180px] font-black text-primary leading-none select-none">DIRECTORY</span>
+</div>
+</body></html>

@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;500;700;900&amp;family=Noto+Sans+Devanagari:wght@400;500;700;900&amp;family=Public+Sans:wght@400;500;700;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "on-surface-variant": "#444651",
+                        "inverse-surface": "#2d3133",
+                        "tertiary": "#00341a",
+                        "secondary-container": "#fe6500",
+                        "on-background": "#191c1e",
+                        "error": "#ba1a1a",
+                        "primary-container": "#1a3c8f",
+                        "on-primary-container": "#92abff",
+                        "surface-dim": "#d8dadd",
+                        "surface-container-high": "#e6e8eb",
+                        "outline": "#747683",
+                        "error-container": "#ffdad6",
+                        "background": "#f7f9fc",
+                        "on-tertiary-fixed-variant": "#00522d",
+                        "inverse-primary": "#b4c5ff",
+                        "on-primary-fixed-variant": "#204194",
+                        "surface-variant": "#e0e3e6",
+                        "surface-bright": "#f7f9fc",
+                        "secondary-fixed-dim": "#ffb596",
+                        "secondary-fixed": "#ffdbcd",
+                        "inverse-on-surface": "#eff1f4",
+                        "secondary": "#a33e00",
+                        "on-secondary-fixed-variant": "#7c2e00",
+                        "primary-fixed-dim": "#b4c5ff",
+                        "on-primary-fixed": "#00174c",
+                        "surface": "#f7f9fc",
+                        "on-primary": "#ffffff",
+                        "surface-container": "#eceef1",
+                        "on-secondary-container": "#541d00",
+                        "on-secondary-fixed": "#360f00",
+                        "surface-container-lowest": "#ffffff",
+                        "tertiary-container": "#004d29",
+                        "primary": "#00256f",
+                        "on-secondary": "#ffffff",
+                        "surface-container-low": "#f2f4f7",
+                        "primary-fixed": "#dbe1ff",
+                        "on-error-container": "#93000a",
+                        "on-surface": "#191c1e",
+                        "tertiary-fixed": "#a3f4bc",
+                        "outline-variant": "#c4c6d3",
+                        "on-tertiary-container": "#70bf8b",
+                        "on-error": "#ffffff",
+                        "tertiary-fixed-dim": "#88d8a1",
+                        "on-tertiary-fixed": "#00210f",
+                        "surface-tint": "#3c5aad",
+                        "on-tertiary": "#ffffff",
+                        "surface-container-highest": "#e0e3e6"
+                    },
+                    fontFamily: {
+                        "headline": ["Public Sans", "Noto Sans Devanagari"],
+                        "body": ["Public Sans", "Noto Sans Devanagari"],
+                        "label": ["Public Sans", "Noto Sans Devanagari"]
+                    },
+                    borderRadius: { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" },
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 48;
+            font-size: 48px;
+        }
+        .bilingual-stack {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+    </style>
+</head>
+<body class="bg-surface text-on-surface font-body min-h-screen pb-[140px]">
+<!-- Top Navigation Bar (The Anchor) -->
+<header class="bg-white/80 dark:bg-slate-900/80 backdrop-blur-md shadow-xl shadow-blue-900/5 docked full-width top-0 sticky z-50 flex justify-between items-center w-full px-16 h-[120px]">
+<div class="flex items-center gap-6">
+<span class="material-symbols-outlined text-primary text-5xl">gavel</span>
+<div class="flex flex-col">
+<h1 class="font-['Noto_Sans'] font-black text-blue-900 dark:text-blue-100 text-5xl leading-none">Suvidha One</h1>
+<p class="text-[24px] text-slate-500 font-medium">Digital Grievance Cell</p>
+</div>
+</div>
+<div class="flex gap-8">
+<button class="flex items-center gap-2 p-4 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800 transition-all text-slate-500">
+<span class="material-symbols-outlined" data-icon="language">language</span>
+<span class="text-[24px] font-bold">English / हिंदी</span>
+</button>
+<button class="p-4 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800 transition-all text-slate-500">
+<span class="material-symbols-outlined" data-icon="record_voice_over">record_voice_over</span>
+</button>
+<button class="p-4 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800 transition-all text-slate-500">
+<span class="material-symbols-outlined" data-icon="account_circle">account_circle</span>
+</button>
+</div>
+</header>
+<!-- Side Accessibility Menu (Contextual) -->
+<aside class="fixed left-0 top-1/2 -translate-y-1/2 z-[60] flex flex-col p-4 bg-black rounded-r-3xl shadow-2xl shadow-black/50">
+<div class="mb-4 px-2">
+<p class="text-yellow-400 font-bold text-[24px] uppercase tracking-wider">Accessibility</p>
+</div>
+<div class="flex flex-col gap-4">
+<button class="flex flex-col items-center justify-center p-6 text-white hover:bg-yellow-500 hover:text-black rounded-xl transition-all">
+<span class="material-symbols-outlined mb-2" data-icon="contrast">contrast</span>
+<span class="text-[18px] font-bold">Contrast</span>
+</button>
+<button class="flex flex-col items-center justify-center p-6 text-white hover:bg-yellow-500 hover:text-black rounded-xl transition-all">
+<span class="material-symbols-outlined mb-2" data-icon="format_size">format_size</span>
+<span class="text-[18px] font-bold">Text Size</span>
+</button>
+</div>
+</aside>
+<main class="px-16 py-12 max-w-[1400px] mx-auto">
+<!-- Screen Header -->
+<div class="mb-12">
+<h2 class="text-primary text-[72px] font-black leading-tight">
+                File a Complaint / <span class="font-bold">शिकायत दर्ज करें</span>
+</h2>
+<div class="h-2 w-48 bg-secondary mt-4 rounded-full"></div>
+</div>
+<!-- Section 1: Category Selection (Bento Grid Style) -->
+<section class="mb-16">
+<div class="flex items-center gap-4 mb-8">
+<span class="text-primary-container font-black text-[48px] opacity-20">01</span>
+<h3 class="text-[48px] font-bold text-on-surface">Select Category / श्रेणी चुनें</h3>
+</div>
+<div class="grid grid-cols-5 gap-8">
+<!-- Electricity -->
+<button class="group flex flex-col items-center justify-center p-10 bg-surface-container-highest rounded-[40px] hover:bg-primary hover:text-white transition-all duration-300 shadow-lg shadow-black/5">
+<span class="material-symbols-outlined text-[64px] mb-6 group-hover:scale-110 transition-transform" data-icon="bolt">bolt</span>
+<div class="text-center">
+<p class="text-[32px] font-bold">Electricity</p>
+<p class="text-[28px] opacity-80">बिजली</p>
+</div>
+</button>
+<!-- Water -->
+<button class="group flex flex-col items-center justify-center p-10 bg-surface-container-highest rounded-[40px] hover:bg-primary hover:text-white transition-all duration-300 shadow-lg shadow-black/5">
+<span class="material-symbols-outlined text-[64px] mb-6 group-hover:scale-110 transition-transform" data-icon="water_drop">water_drop</span>
+<div class="text-center">
+<p class="text-[32px] font-bold">Water</p>
+<p class="text-[28px] opacity-80">पानी</p>
+</div>
+</button>
+<!-- Gas -->
+<button class="group flex flex-col items-center justify-center p-10 bg-surface-container-highest rounded-[40px] hover:bg-primary hover:text-white transition-all duration-300 shadow-lg shadow-black/5">
+<span class="material-symbols-outlined text-[64px] mb-6 group-hover:scale-110 transition-transform" data-icon="propane_tank">propane_tank</span>
+<div class="text-center">
+<p class="text-[32px] font-bold">Gas</p>
+<p class="text-[28px] opacity-80">गैस</p>
+</div>
+</button>
+<!-- Municipal -->
+<button class="group flex flex-col items-center justify-center p-10 bg-surface-container-highest rounded-[40px] hover:bg-primary hover:text-white transition-all duration-300 shadow-lg shadow-black/5">
+<span class="material-symbols-outlined text-[64px] mb-6 group-hover:scale-110 transition-transform" data-icon="location_city">location_city</span>
+<div class="text-center">
+<p class="text-[32px] font-bold">Municipal</p>
+<p class="text-[28px] opacity-80">नगर पालिका</p>
+</div>
+</button>
+<!-- Other -->
+<button class="group flex flex-col items-center justify-center p-10 bg-surface-container-highest rounded-[40px] hover:bg-primary hover:text-white transition-all duration-300 shadow-lg shadow-black/5">
+<span class="material-symbols-outlined text-[64px] mb-6 group-hover:scale-110 transition-transform" data-icon="pending">pending</span>
+<div class="text-center">
+<p class="text-[32px] font-bold">Other</p>
+<p class="text-[28px] opacity-80">अन्य</p>
+</div>
+</button>
+</div>
+</section>
+<!-- Section 2: Input Details -->
+<section class="grid grid-cols-1 gap-12 mb-16">
+<div class="flex flex-col gap-8">
+<div class="flex items-center gap-4">
+<span class="text-primary-container font-black text-[48px] opacity-20">02</span>
+<h3 class="text-[48px] font-bold text-on-surface">Complaint Details / शिकायत का विवरण</h3>
+</div>
+<!-- Subject Field -->
+<div class="flex flex-col gap-4">
+<label class="text-[32px] font-bold text-on-surface-variant px-2">Subject / विषय</label>
+<div class="bg-surface-container-highest p-8 rounded-3xl border-b-[6px] border-primary">
+<input class="w-full bg-transparent border-none text-[40px] focus:ring-0 placeholder:text-outline-variant" placeholder="Enter a brief title / एक संक्षिप्त शीर्षक दर्ज करें" type="text"/>
+</div>
+</div>
+<!-- Description Field -->
+<div class="flex flex-col gap-4">
+<label class="text-[32px] font-bold text-on-surface-variant px-2">Description / विवरण</label>
+<div class="bg-surface-container-highest p-8 rounded-3xl border-b-[6px] border-primary">
+<textarea class="w-full bg-transparent border-none text-[40px] focus:ring-0 placeholder:text-outline-variant resize-none" placeholder="Describe your issue in detail / अपनी समस्या का विस्तार से वर्णन करें" rows="6"></textarea>
+</div>
+</div>
+</div>
+</section>
+<!-- Section 3: Attachments & Submit -->
+<section class="flex flex-col gap-12">
+<div class="flex items-center gap-4">
+<span class="text-primary-container font-black text-[48px] opacity-20">03</span>
+<h3 class="text-[48px] font-bold text-on-surface">Attachments / संलग्नक</h3>
+</div>
+<div class="grid grid-cols-2 gap-8">
+<!-- Attach Button -->
+<button class="flex items-center justify-center gap-6 p-12 bg-surface-container-high rounded-[32px] border-4 border-dashed border-outline-variant hover:border-primary transition-all">
+<span class="material-symbols-outlined text-[64px] text-primary" data-icon="add_a_photo">add_a_photo</span>
+<div class="text-left">
+<p class="text-[36px] font-bold">Attach Photo/Video</p>
+<p class="text-[28px] text-on-surface-variant">फ़ोटो/वीडियो जोड़ें</p>
+</div>
+</button>
+<!-- Help Info Card -->
+<div class="p-12 bg-primary-container/10 rounded-[32px] flex items-start gap-6">
+<span class="material-symbols-outlined text-[48px] text-primary" data-icon="info">info</span>
+<div>
+<p class="text-[28px] leading-relaxed text-primary">
+                            Your complaint will be forwarded to the relevant department immediately. Reference ID will be generated upon submission.
+                        </p>
+<p class="text-[24px] leading-relaxed text-primary/80 mt-2 italic">
+                            आपकी शिकायत तुरंत संबंधित विभाग को भेज दी जाएगी। संदर्भ आईडी जमा करने पर जनरेट की जाएगी।
+                        </p>
+</div>
+</div>
+</div>
+<!-- Primary CTA -->
+<button class="w-full mt-12 py-10 bg-secondary-container hover:brightness-110 active:scale-[0.98] transition-all rounded-[32px] shadow-2xl shadow-secondary/30 flex flex-col items-center justify-center gap-1 group">
+<span class="text-white text-[56px] font-black tracking-tight flex items-center gap-4">
+                    SUBMIT COMPLAINT
+                    <span class="material-symbols-outlined text-[64px] group-hover:translate-x-4 transition-transform" data-icon="send">send</span>
+</span>
+<span class="text-white/90 text-[36px] font-medium">शिकायत दर्ज करें</span>
+</button>
+</section>
+</main>
+<!-- Bottom Navigation Bar (The Universal Shell) -->
+<nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-8 pb-8 pt-4 bg-slate-100 dark:bg-slate-800 border-t-4 border-blue-900/10 shadow-[0_-10px_40px_rgba(0,0,0,0.1)] h-[140px]">
+<button class="flex flex-col items-center justify-center text-blue-900 dark:text-blue-200 px-8 h-[100px] hover:bg-blue-50 dark:hover:bg-blue-900/30 rounded-3xl transition-all min-w-[200px]">
+<span class="material-symbols-outlined" data-icon="home">home</span>
+<span class="font-['Noto_Sans'] font-medium text-[32px]">Home</span>
+</button>
+<button class="flex flex-col items-center justify-center text-blue-900 dark:text-blue-200 px-8 h-[100px] hover:bg-blue-50 dark:hover:bg-blue-900/30 rounded-3xl transition-all min-w-[200px]">
+<span class="material-symbols-outlined" data-icon="history">history</span>
+<span class="font-['Noto_Sans'] font-medium text-[32px]">History</span>
+</button>
+<button class="flex flex-col items-center justify-center text-blue-900 dark:text-blue-200 px-8 h-[100px] hover:bg-blue-50 dark:hover:bg-blue-900/30 rounded-3xl transition-all min-w-[200px]">
+<span class="material-symbols-outlined" data-icon="help">help</span>
+<span class="font-['Noto_Sans'] font-medium text-[32px]">Help</span>
+</button>
+<button class="flex flex-col items-center justify-center text-blue-900 dark:text-blue-200 px-8 h-[100px] hover:bg-blue-50 dark:hover:bg-blue-900/30 rounded-3xl transition-all min-w-[200px]">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+<span class="font-['Noto_Sans'] font-medium text-[32px]">Settings</span>
+</button>
+</nav>
+</body></html>

@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Suvidha One - Dashboard</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;500;700;900&amp;family=Noto+Sans+Devanagari:wght@400;700;900&amp;family=Public+Sans:wght@400;500;700;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "tertiary-fixed": "#a3f4bc",
+                        "on-error-container": "#93000a",
+                        "on-primary-fixed-variant": "#204194",
+                        "on-primary-fixed": "#00174c",
+                        "error-container": "#ffdad6",
+                        "on-secondary": "#ffffff",
+                        "primary-container": "#1a3c8f",
+                        "surface-container-lowest": "#ffffff",
+                        "on-surface-variant": "#444651",
+                        "tertiary-container": "#004d29",
+                        "on-tertiary-fixed": "#00210f",
+                        "on-tertiary-container": "#70bf8b",
+                        "surface-container-highest": "#e0e3e6",
+                        "background": "#f7f9fc",
+                        "surface-bright": "#f7f9fc",
+                        "tertiary-fixed-dim": "#88d8a1",
+                        "tertiary": "#00341a",
+                        "on-primary-container": "#92abff",
+                        "surface-container": "#eceef1",
+                        "surface-variant": "#e0e3e6",
+                        "on-secondary-container": "#541d00",
+                        "surface-dim": "#d8dadd",
+                        "on-tertiary": "#ffffff",
+                        "on-primary": "#ffffff",
+                        "surface-container-low": "#f2f4f7",
+                        "on-secondary-fixed-variant": "#7c2e00",
+                        "secondary-container": "#fe6500",
+                        "primary": "#00256f",
+                        "on-tertiary-fixed-variant": "#00522d",
+                        "on-surface": "#191c1e",
+                        "on-error": "#ffffff",
+                        "secondary-fixed-dim": "#ffb596",
+                        "surface": "#f7f9fc",
+                        "on-background": "#191c1e",
+                        "outline-variant": "#c4c6d3",
+                        "secondary-fixed": "#ffdbcd",
+                        "inverse-primary": "#b4c5ff",
+                        "surface-container-high": "#e6e8eb",
+                        "outline": "#747683",
+                        "primary-fixed-dim": "#b4c5ff",
+                        "primary-fixed": "#dbe1ff",
+                        "on-secondary-fixed": "#360f00",
+                        "error": "#ba1a1a",
+                        "inverse-surface": "#2d3133",
+                        "inverse-on-surface": "#eff1f4",
+                        "surface-tint": "#3c5aad",
+                        "secondary": "#a33e00"
+                    },
+                    fontFamily: {
+                        "headline": ["Public Sans", "Noto Sans", "Noto Sans Devanagari"],
+                        "body": ["Public Sans", "Noto Sans", "Noto Sans Devanagari"],
+                        "label": ["Public Sans", "Noto Sans", "Noto Sans Devanagari"],
+                        "noto-sans": ["Noto Sans", "Noto Sans Devanagari", "sans-serif"]
+                    },
+                    borderRadius: { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" },
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 48;
+        }
+        body {
+            font-family: 'Public Sans', 'Noto Sans', 'Noto Sans Devanagari', sans-serif;
+            background-color: #f7f9fc;
+        }
+        .search-large-shadow {
+            box-shadow: 0 20px 50px -12px rgba(0, 37, 111, 0.15);
+        }
+    </style>
+</head>
+<body class="min-h-screen pb-[160px]">
+<!-- TopNavBar (Shared Component) -->
+<header class="bg-white/80 dark:bg-slate-900/80 backdrop-blur-md shadow-xl shadow-blue-900/5 docked full-width top-0 sticky z-50 flex justify-between items-center w-full px-16 h-[120px]">
+<div class="flex items-center gap-4">
+<span class="text-5xl font-black text-blue-900 dark:text-blue-100">Suvidha One</span>
+</div>
+<div class="flex items-center gap-8">
+<button class="flex items-center justify-center p-4 rounded-full hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors">
+<span class="material-symbols-outlined text-[48px] text-blue-900 dark:text-blue-400">language</span>
+</button>
+<button class="flex items-center justify-center p-4 rounded-full hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors">
+<span class="material-symbols-outlined text-[48px] text-blue-900 dark:text-blue-400">record_voice_over</span>
+</button>
+<button class="flex items-center justify-center p-4 rounded-full hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors">
+<span class="material-symbols-outlined text-[48px] text-blue-900 dark:text-blue-400">account_circle</span>
+</button>
+</div>
+</header>
+<main class="px-16 py-12">
+<!-- Hero Section: User Greeting & Bills Summary -->
+<section class="mb-12">
+<div class="flex flex-col md:flex-row justify-between items-end gap-8 mb-12">
+<div>
+<h1 class="text-[72px] font-black text-primary leading-tight mb-2">Welcome, राम सिंह</h1>
+<p class="text-[32px] text-on-surface-variant font-medium">Dashboard Overview</p>
+</div>
+<div class="bg-primary-container p-10 rounded-[40px] shadow-2xl flex items-center gap-12 border-l-[12px] border-secondary">
+<div class="bg-secondary p-6 rounded-full">
+<span class="material-symbols-outlined text-white text-[64px]">receipt_long</span>
+</div>
+<div>
+<p class="text-on-primary-container text-[32px] opacity-80 mb-1">Total Pending Bills</p>
+<p class="text-white text-[56px] font-bold">₹2,450</p>
+</div>
+</div>
+</div>
+<!-- Refined Search Bar Functionality -->
+<div class="w-full max-w-5xl mx-auto mb-16">
+<div class="flex items-center bg-white dark:bg-slate-800 rounded-[32px] px-10 h-[110px] search-large-shadow border-4 border-primary/10 focus-within:border-primary transition-all">
+<span class="material-symbols-outlined text-primary mr-6" style="font-size: 56px;">search</span>
+<input class="bg-transparent border-none focus:ring-0 text-[44px] w-full font-noto-sans text-on-surface font-black placeholder:text-on-surface-variant/40" placeholder="Type to search... / यहाँ खोजें..." type="text"/>
+<button class="ml-4 p-4 hover:bg-slate-100 dark:hover:bg-slate-700 rounded-full transition-colors active:scale-90">
+<span class="material-symbols-outlined text-on-surface-variant" style="font-size: 48px;">close</span>
+</button>
+</div>
+<!-- Popular Search Chips -->
+<div class="mt-8 flex flex-wrap items-center gap-4">
+<span class="text-[28px] font-bold text-on-surface-variant mr-2">Popular:</span>
+<button class="bg-primary/5 hover:bg-primary/10 border-2 border-primary/10 px-8 py-4 rounded-full text-[24px] font-bold text-primary transition-all active:scale-95">Electricity</button>
+<button class="bg-primary/5 hover:bg-primary/10 border-2 border-primary/10 px-8 py-4 rounded-full text-[24px] font-bold text-primary transition-all active:scale-95">Water</button>
+<button class="bg-primary/5 hover:bg-primary/10 border-2 border-primary/10 px-8 py-4 rounded-full text-[24px] font-bold text-primary transition-all active:scale-95">Gas</button>
+<button class="bg-primary/5 hover:bg-primary/10 border-2 border-primary/10 px-8 py-4 rounded-full text-[24px] font-bold text-primary transition-all active:scale-95">Municipal</button>
+</div>
+</div>
+</section>
+<!-- Service Grid -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-12 overflow-y-auto pb-12">
+<!-- Electricity Card -->
+<div class="bg-surface-container-low rounded-[48px] h-[280px] p-8 flex flex-col items-center justify-center relative hover:bg-surface-container-high transition-all shadow-md group border-b-8 border-primary/10">
+<div class="bg-primary/10 w-[140px] h-[140px] rounded-full flex items-center justify-center mb-6">
+<span class="material-symbols-outlined text-[120px] text-primary" data-icon="electricity">energy</span>
+</div>
+<h3 class="text-[32px] font-bold text-primary">Electricity</h3>
+<div class="absolute top-4 right-8 bg-error-container px-4 py-1 rounded-full">
+<span class="text-on-error-container text-[24px] font-bold">₹1,200 Due</span>
+</div>
+</div>
+<!-- Water Card -->
+<div class="bg-surface-container-low rounded-[48px] h-[280px] p-8 flex flex-col items-center justify-center relative hover:bg-surface-container-high transition-all shadow-md group border-b-8 border-primary/10">
+<div class="bg-primary/10 w-[140px] h-[140px] rounded-full flex items-center justify-center mb-6">
+<span class="material-symbols-outlined text-[120px] text-primary" data-icon="water_drop">water_drop</span>
+</div>
+<h3 class="text-[32px] font-bold text-primary">Water Supply</h3>
+<div class="absolute top-4 right-8 bg-error-container px-4 py-1 rounded-full">
+<span class="text-on-error-container text-[24px] font-bold">₹450 Due</span>
+</div>
+</div>
+<!-- Gas Card -->
+<div class="bg-surface-container-low rounded-[48px] h-[280px] p-8 flex flex-col items-center justify-center relative hover:bg-surface-container-high transition-all shadow-md group border-b-8 border-primary/10">
+<div class="bg-primary/10 w-[140px] h-[140px] rounded-full flex items-center justify-center mb-6">
+<span class="material-symbols-outlined text-[120px] text-primary" data-icon="local_fire_dept">local_fire_department</span>
+</div>
+<h3 class="text-[32px] font-bold text-primary">Gas / LPG</h3>
+<div class="absolute top-4 right-8 bg-error-container px-4 py-1 rounded-full">
+<span class="text-on-error-container text-[24px] font-bold">₹800 Due</span>
+</div>
+</div>
+<!-- Municipal Services -->
+<div class="bg-surface-container-low rounded-[48px] h-[280px] p-8 flex flex-col items-center justify-center relative hover:bg-surface-container-high transition-all shadow-md group border-b-8 border-primary/10">
+<div class="bg-primary/10 w-[140px] h-[140px] rounded-full flex items-center justify-center mb-6">
+<span class="material-symbols-outlined text-[120px] text-primary" data-icon="account_balance">account_balance</span>
+</div>
+<h3 class="text-[32px] font-bold text-primary text-center">Municipal Services</h3>
+</div>
+<!-- Certificates -->
+<div class="bg-surface-container-low rounded-[48px] h-[280px] p-8 flex flex-col items-center justify-center relative hover:bg-surface-container-high transition-all shadow-md group border-b-8 border-primary/10">
+<div class="bg-primary/10 w-[140px] h-[140px] rounded-full flex items-center justify-center mb-6">
+<span class="material-symbols-outlined text-[120px] text-primary" data-icon="description">description</span>
+</div>
+<h3 class="text-[32px] font-bold text-primary">Certificates</h3>
+</div>
+<!-- Bill Payment -->
+<div class="bg-secondary-container rounded-[48px] h-[280px] p-8 flex flex-col items-center justify-center relative hover:brightness-110 transition-all shadow-xl group border-b-8 border-secondary/20">
+<div class="bg-white/20 w-[140px] h-[140px] rounded-full flex items-center justify-center mb-6">
+<span class="material-symbols-outlined text-[120px] text-white" data-icon="receipt_long">receipt_long</span>
+</div>
+<h3 class="text-[32px] font-bold text-white">Bill Payment</h3>
+</div>
+<!-- Grievance -->
+<div class="bg-surface-container-low rounded-[48px] h-[280px] p-8 flex flex-col items-center justify-center relative hover:bg-surface-container-high transition-all shadow-md group border-b-8 border-primary/10">
+<div class="bg-primary/10 w-[140px] h-[140px] rounded-full flex items-center justify-center mb-6">
+<span class="material-symbols-outlined text-[120px] text-primary" data-icon="campaign">campaign</span>
+</div>
+<h3 class="text-[32px] font-bold text-primary">Grievance</h3>
+</div>
+<!-- More Services -->
+<div class="bg-surface-container-low rounded-[48px] h-[280px] p-8 flex flex-col items-center justify-center relative hover:bg-surface-container-high transition-all shadow-md group border-b-8 border-primary/10">
+<div class="bg-primary/10 w-[140px] h-[140px] rounded-full flex items-center justify-center mb-6">
+<span class="material-symbols-outlined text-[120px] text-primary" data-icon="apps">apps</span>
+</div>
+<h3 class="text-[32px] font-bold text-primary">More Services</h3>
+</div>
+<!-- Profile Info Card -->
+<div class="bg-primary rounded-[48px] h-[280px] p-10 flex flex-col justify-between shadow-2xl relative overflow-hidden group">
+<div class="absolute -right-8 -bottom-8 opacity-10">
+<span class="material-symbols-outlined text-[200px] text-white">shield</span>
+</div>
+<p class="text-white/60 text-[28px] font-medium z-10">Citizen ID: SU-8829</p>
+<div class="z-10">
+<p class="text-white text-[36px] font-bold">Profile Verified</p>
+<p class="text-white/80 text-[24px]">Security Level: High</p>
+</div>
+</div>
+</div>
+</main>
+<!-- SideNavBar (Accessibility Trigger) -->
+<nav class="fixed left-0 top-1/2 -translate-y-1/2 z-[60] flex flex-col p-4 bg-black dark:bg-black rounded-r-3xl shadow-2xl shadow-black/50">
+<div class="mb-6 px-4">
+<p class="text-yellow-400 font-bold text-[32px] leading-tight">Accessibility</p>
+<p class="text-white opacity-60 text-[20px]">Kiosk Settings</p>
+</div>
+<div class="flex flex-col gap-4">
+<button class="flex items-center gap-4 text-white hover:bg-yellow-500 hover:text-black p-4 rounded-xl transition-all">
+<span class="material-symbols-outlined text-[40px]">contrast</span>
+<span class="text-[28px] font-bold">High Contrast</span>
+</button>
+<button class="flex items-center gap-4 text-white hover:bg-yellow-500 hover:text-black p-4 rounded-xl transition-all">
+<span class="material-symbols-outlined text-[40px]">format_size</span>
+<span class="text-[28px] font-bold">Large Text</span>
+</button>
+</div>
+</nav>
+<!-- BottomNavBar (Shared Component) -->
+<nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-8 pb-8 pt-4 bg-slate-100 dark:bg-slate-800 border-t-4 border-blue-900/10 shadow-[0_-10px_40px_rgba(0,0,0,0.1)] h-[140px]">
+<!-- Home (Active) -->
+<button class="flex flex-col items-center justify-center bg-orange-600 text-white rounded-3xl px-12 py-4 h-[100px] min-w-[200px] brightness-110 scale-98 transition-all">
+<span class="material-symbols-outlined text-[48px]" style="font-variation-settings: 'FILL' 1;">home</span>
+<span class="font-['Noto_Sans'] font-medium text-[32px]">Home</span>
+</button>
+<!-- History -->
+<button class="flex flex-col items-center justify-center text-blue-900 dark:text-blue-200 px-8 h-[100px] hover:bg-blue-50 dark:hover:bg-blue-900/30 transition-colors">
+<span class="material-symbols-outlined text-[48px]">history</span>
+<span class="font-['Noto_Sans'] font-medium text-[32px]">History</span>
+</button>
+<!-- Help -->
+<button class="flex flex-col items-center justify-center text-blue-900 dark:text-blue-200 px-8 h-[100px] hover:bg-blue-50 dark:hover:bg-blue-900/30 transition-colors">
+<span class="material-symbols-outlined text-[48px]">help</span>
+<span class="font-['Noto_Sans'] font-medium text-[32px]">Help</span>
+</button>
+<!-- Settings -->
+<button class="flex flex-col items-center justify-center text-blue-900 dark:text-blue-200 px-8 h-[100px] hover:bg-blue-50 dark:hover:bg-blue-900/30 transition-colors">
+<span class="material-symbols-outlined text-[48px]">settings</span>
+<span class="font-['Noto_Sans'] font-medium text-[32px]">Settings</span>
+</button>
+</nav>
+</body></html>

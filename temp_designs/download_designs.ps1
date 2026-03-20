@@ -1,0 +1,21 @@
+$designs = @(
+    @{ name = "Bill_Payment.html"; url = "https://contribution.usercontent.google.com/download?c=CgthaWRhX2NvZGVmeBJ7Eh1hcHBfY29tcGFuaW9uX2dlbmVyYXRlZF9maWxlcxpaCiVodG1sXzY5MDk2ZTEyNzIyNjRlMzE4Y2M4ZGUzY2VjMDc2M2E2EgsSBxDNxvTQ6RsYAZIBIwoKcHJvamVjdF9pZBIVQhM3MjM2NjY3NjQ4MTA2ODQwODEx&filename=&opi=89354086" },
+    @{ name = "Authentication.html"; url = "https://contribution.usercontent.google.com/download?c=CgthaWRhX2NvZGVmeBJ7Eh1hcHBfY29tcGFuaW9uX2dlbmVyYXRlZF9maWxlcxpaCiVodG1sX2QyZDA4MTlhZjhiMjQ1YTNiZGUyYTY0YzY0ODM4MzM0EgsSBxDNxvTQ6RsYAZIBIwoKcHJvamVjdF9pZBIVQhM3MjM2NjY3NjQ4MTA2ODQwODEx&filename=&opi=89354086" },
+    @{ name = "Track_Complaints.html"; url = "https://contribution.usercontent.google.com/download?c=CgthaWRhX2NvZGVmeBJ7Eh1hcHBfY29tcGFuaW9uX2dlbmVyYXRlZF9maWxlcxpaCiVodG1sXzdjZmI3OGViZGY5MDRmMjhiOWNmZDY5NTRhZGE0YWM0EgsSBxDNxvTQ6RsYAZIBIwoKcHJvamVjdF9pZBIVQhM3MjM2NjY3NjQ4MTA2ODQwODEx&filename=&opi=89354086" },
+    @{ name = "Help_Assistance.html"; url = "https://contribution.usercontent.google.com/download?c=CgthaWRhX2NvZGVmeBJ7Eh1hcHBfY29tcGFuaW9uX2dlbmVyYXRlZF9maWxlcxpaCiVodG1sX2Y5Y2U2OWJmMWQzYjQ1NjBiMDgxYWZjNTI1NGJkMDc0EgsSBxDNxvTQ6RsYAZIBIwoKcHJvamVjdF9pZBIVQhM3MjM2NjY3NjQ4MTA2ODQwODEx&filename=&opi=89354086" },
+    @{ name = "File_Complaint.html"; url = "https://contribution.usercontent.google.com/download?c=CgthaWRhX2NvZGVmeBJ7Eh1hcHBfY29tcGFuaW9uX2dlbmVyYXRlZF9maWxlcxpaCiVodG1sXzlkYWUwYjhmMDlkZDRmYWU4MjJkNTUyZTRlMzUwNTkzEgsSBxDNxvTQ6RsYAZIBIwoKcHJvamVjdF9pZBIVQhM3MjM2NjY3NjQ4MTA2ODQwODEx&filename=&opi=89354086" },
+    @{ name = "Payment_Success.html"; url = "https://contribution.usercontent.google.com/download?c=CgthaWRhX2NvZGVmeBJ7Eh1hcHBfY29tcGFuaW9uX2dlbmVyYXRlZF9maWxlcxpaCiVodG1sXzAwMDQzYmQwZjRiZTRlZjI5ZDA4Nzg3MTFkNTg0MzkxEgsSBxDNxvTQ6RsYAZIBIwoKcHJvamVjdF9pZBIVQhM3MjM2NjY3NjQ4MTA2ODQwODEx&filename=&opi=89354086" },
+    @{ name = "Payment_Processing.html"; url = "https://contribution.usercontent.google.com/download?c=CgthaWRhX2NvZGVmeBJ7Eh1hcHBfY29tcGFuaW9uX2dlbmVyYXRlZF9maWxlcxpaCiVodG1sXzkyYzZmZWU2OGVhNzRlMGU4NDNmMGU2ZWZlOTBkZjY4EgsSBxDNxvTQ6RsYAZIBIwoKcHJvamVjdF9pZBIVQhM3MjM2NjY3NjQ4MTA2ODQwODEx&filename=&opi=89354086" },
+    @{ name = "Language_Selection.html"; url = "https://contribution.usercontent.google.com/download?c=CgthaWRhX2NvZGVmeBJ7Eh1hcHBfY29tcGFuaW9uX2dlbmVyYXRlZF9maWxlcxpaCiVodG1sX2UyYmIwN2U0OWM5MjQ5MDhhYjZmM2E3OTc1MzBkMWFhEgsSBxDNxvTQ6RsYAZIBIwoKcHJvamVjdF9pZBIVQhM3MjM2NjY3NjQ4MTA2ODQwODEx&filename=&opi=89354086" },
+    @{ name = "Dashboard_Search.html"; url = "https://contribution.usercontent.google.com/download?c=CgthaWRhX2NvZGVmeBJ7Eh1hcHBfY29tcGFuaW9uX2dlbmVyYXRlZF9maWxlcxpaCiVodG1sX2ZhYWEyNGFlMjA3ZjRkMjU5ZTRiYjE5ZDIyMGFlNDY3EgsSBxDNxvTQ6RsYAZIBIwoKcHJvamVjdF9pZBIVQhM3MjM2NjY3NjQ4MTA2ODQwODEx&filename=&opi=89354086" },
+    @{ name = "Department_Search.html"; url = "https://contribution.usercontent.google.com/download?c=CgthaWRhX2NvZGVmeBJ7Eh1hcHBfY29tcGFuaW9uX2dlbmVyYXRlZF9maWxlcxpaCiVodG1sXzg5NDJhY2RjMzk2MjQzMjFiZWJhZDZjZDNkMjEzNzg4EgsSBxDNxvTQ6RsYAZIBIwoKcHJvamVjdF9pZBIVQhM3MjM2NjY3NjQ4MTA2ODQwODEx&filename=&opi=89354086" },
+    @{ name = "Session_Timeout.html"; url = "https://contribution.usercontent.google.com/download?c=CgthaWRhX2NvZGVmeBJ7Eh1hcHBfY29tcGFuaW9uX2dlbmVyYXRlZF9maWxlcxpaCiVodG1sXzJiZmZmMDRlODEwOTQ0MjRiMDA5MWZkNDYxYmIwMjJiEgsSBxDNxvTQ6RsYAZIBIwoKcHJvamVjdF9pZBIVQhM3MjM2NjY3NjQ4MTA2ODQwODEx&filename=&opi=89354086" },
+    @{ name = "Landing.html"; url = "https://contribution.usercontent.google.com/download?c=CgthaWRhX2NvZGVmeBJ7Eh1hcHBfY29tcGFuaW9uX2dlbmVyYXRlZF9maWxlcxpaCiVodG1sXzgzYTU5OGZmNjIyNDRiYWZhM2Y5OTViNTgyZTEwYmExEgsSBxDNxvTQ6RsYAZIBIwoKcHJvamVjdF9pZBIVQhM3MjM2NjY3NjQ4MTA2ODQwODEx&filename=&opi=96797242" },
+    @{ name = "PRD_Architecture.html"; url = "https://contribution.usercontent.google.com/download?c=CgthaWRhX2NvZGVmeBJ7Eh1hcHBfY29tcGFuaW9uX2dlbmVyYXRlZF9maWxlcxpaCiVodG1sXzdmOTczMjAzY2I4YTQyNGI5MjIzZDc2OTJhZTVjMTE1EgsSBxDNxvTQ6RsYAZIBIwoKcHJvamVjdF9pZBIVQhM3MjM2NjY3NjQ4MTA2ODQwODEx&filename=&opi=89354086" }
+)
+
+foreach ($design in $designs) {
+    $outPath = Join-Path "c:\SUVIDHA_ONE\temp_designs" $design.name
+    Write-Host "Downloading $($design.name)..."
+    Invoke-WebRequest -Uri $design.url -OutFile $outPath
+}

@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Session Timeout | BHARAT SENTINEL</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;700;900&amp;family=Noto+Sans+Devanagari:wght@400;700;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "tertiary-fixed": "#a3f4bc",
+              "on-secondary": "#ffffff",
+              "outline-variant": "#c4c6d3",
+              "on-primary-fixed": "#00174c",
+              "secondary": "#a33e00",
+              "surface-dim": "#d8dadd",
+              "on-tertiary-fixed-variant": "#00522d",
+              "on-secondary-fixed-variant": "#7c2e00",
+              "on-error": "#ffffff",
+              "on-secondary-fixed": "#360f00",
+              "secondary-fixed-dim": "#ffb596",
+              "primary-fixed": "#dbe1ff",
+              "surface-bright": "#f7f9fc",
+              "on-surface": "#191c1e",
+              "surface-container": "#eceef1",
+              "on-background": "#191c1e",
+              "on-tertiary-container": "#70bf8b",
+              "on-primary-fixed-variant": "#204194",
+              "on-tertiary-fixed": "#00210f",
+              "inverse-surface": "#2d3133",
+              "on-error-container": "#93000a",
+              "tertiary": "#00341a",
+              "secondary-container": "#fe6500",
+              "primary-container": "#1a3c8f",
+              "primary": "#00256f",
+              "surface-container-low": "#f2f4f7",
+              "inverse-primary": "#b4c5ff",
+              "secondary-fixed": "#ffdbcd",
+              "surface-container-high": "#e6e8eb",
+              "surface-container-highest": "#e0e3e6",
+              "surface-tint": "#3c5aad",
+              "surface": "#f7f9fc",
+              "tertiary-fixed-dim": "#88d8a1",
+              "background": "#f7f9fc",
+              "on-secondary-container": "#541d00",
+              "on-primary-container": "#92abff",
+              "tertiary-container": "#004d29",
+              "on-surface-variant": "#444651",
+              "inverse-on-surface": "#eff1f4",
+              "primary-fixed-dim": "#b4c5ff",
+              "error-container": "#ffdad6",
+              "surface-variant": "#e0e3e6",
+              "outline": "#747683",
+              "surface-container-lowest": "#ffffff",
+              "on-primary": "#ffffff",
+              "on-tertiary": "#ffffff",
+              "error": "#ba1a1a"
+            },
+            fontFamily: {
+              "headline": ["Public Sans", "Noto Sans Devanagari", "sans-serif"],
+              "body": ["Public Sans", "Noto Sans Devanagari", "sans-serif"],
+              "label": ["Public Sans", "Noto Sans Devanagari", "sans-serif"]
+            },
+            borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body {
+            font-family: 'Public Sans', 'Noto Sans Devanagari', sans-serif;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background min-h-screen overflow-hidden">
+<!-- TopNavBar (Dimmed/Non-interactive) -->
+<header class="fixed top-0 w-full z-50 flex justify-between items-center px-16 h-32 bg-slate-50/80 backdrop-blur-md border-b-4 border-blue-900 opacity-40 pointer-events-none shadow-2xl">
+<div class="font-sans uppercase tracking-tighter font-black text-4xl text-blue-900">
+            BHARAT SENTINEL
+        </div>
+<div class="flex gap-8">
+<span class="material-symbols-outlined text-4xl text-slate-600" data-icon="g_translate">g_translate</span>
+<span class="material-symbols-outlined text-4xl text-slate-600" data-icon="accessibility_new">accessibility_new</span>
+</div>
+</header>
+<!-- SideNavBar (Dimmed/Non-interactive) -->
+<aside class="fixed left-0 top-32 bottom-0 w-32 flex flex-col items-center py-8 bg-slate-100 border-r border-slate-300 opacity-40 pointer-events-none">
+<div class="flex flex-col items-center gap-12 mt-8">
+<div class="flex flex-col items-center gap-2">
+<div class="w-16 h-16 flex items-center justify-center rounded-none text-slate-500">
+<span class="material-symbols-outlined text-4xl" data-icon="help">help</span>
+</div>
+<span class="text-xs font-bold text-slate-500 text-center uppercase">Help / <br/> सहायता</span>
+</div>
+<div class="flex flex-col items-center gap-2">
+<div class="w-16 h-16 flex items-center justify-center rounded-none text-slate-500">
+<span class="material-symbols-outlined text-4xl" data-icon="emergency">emergency</span>
+</div>
+<span class="text-xs font-bold text-slate-500 text-center uppercase">Emergency / <br/> आपातकालीन</span>
+</div>
+</div>
+</aside>
+<!-- Main Content: Session Timeout Modal Layer -->
+<main class="ml-32 mt-32 h-[calc(100vh-8rem)] flex items-center justify-center p-16 bg-surface-dim/30 backdrop-blur-sm">
+<!-- The Central "Digital Pillar" Card -->
+<div class="relative w-full max-w-6xl bg-surface-container-lowest shadow-[0_32px_64px_-12px_rgba(0,0,0,0.15)] rounded-xl overflow-hidden flex flex-col">
+<!-- Visual Accent Bar -->
+<div class="h-4 w-full bg-gradient-to-r from-primary via-primary-container to-primary"></div>
+<div class="p-20 flex flex-col items-center text-center gap-12">
+<!-- Icon and Title -->
+<div class="flex flex-col items-center gap-6">
+<div class="w-32 h-32 rounded-full bg-error-container flex items-center justify-center mb-4">
+<span class="material-symbols-outlined text-7xl text-error" data-icon="timer" style="font-variation-settings: 'FILL' 1;">timer</span>
+</div>
+<h1 class="text-[72px] leading-tight font-black text-primary tracking-tight">
+                        Session Timeout <br/>
+<span class="text-secondary">सत्र समाप्त</span>
+</h1>
+</div>
+<!-- Countdown Timer Display -->
+<div class="relative flex items-center justify-center">
+<!-- Progress Ring Emulation -->
+<div class="w-80 h-80 rounded-full border-[16px] border-surface-container-highest flex flex-col items-center justify-center bg-surface-container-low">
+<span class="text-[96px] font-black text-primary leading-none">30</span>
+<span class="text-2xl font-bold text-on-surface-variant uppercase tracking-widest mt-2">Seconds</span>
+</div>
+<!-- Secondary Accent Ring -->
+<div class="absolute inset-0 border-[16px] border-secondary rounded-full border-t-transparent animate-spin opacity-20" style="animation-duration: 3s;"></div>
+</div>
+<!-- Instruction Text -->
+<div class="max-w-4xl flex flex-col gap-6">
+<p class="text-[48px] font-bold text-on-surface leading-tight">
+                        Are you still there? Your session will end soon to protect your privacy.
+                    </p>
+<p class="text-[48px] font-medium text-on-surface-variant leading-tight">
+                        क्या आप अभी भी यहाँ हैं? आपकी गोपनीयता की सुरक्षा के लिए आपका सत्र जल्द ही समाप्त हो जाएगा।
+                    </p>
+</div>
+<!-- Action Buttons Cluster -->
+<div class="w-full grid grid-cols-2 gap-8 mt-8">
+<!-- Logout Secondary CTA -->
+<button class="h-[140px] flex flex-col items-center justify-center bg-surface-container-highest hover:bg-outline-variant transition-colors rounded-xl px-8 group active:scale-95 duration-150">
+<span class="text-[32px] font-black text-primary uppercase tracking-tight">LOGOUT NOW</span>
+<span class="text-[28px] font-bold text-primary/70">अभी लॉगआउट करें</span>
+</button>
+<!-- Continue Primary CTA -->
+<button class="h-[140px] flex flex-col items-center justify-center bg-gradient-to-br from-secondary to-secondary-container hover:shadow-2xl hover:shadow-secondary/30 transition-all rounded-xl px-8 shadow-xl active:scale-95 duration-150">
+<span class="text-[40px] font-black text-white uppercase tracking-tight">CONTINUE</span>
+<span class="text-[32px] font-black text-white/90">जारी रखें</span>
+</button>
+</div>
+</div>
+<!-- Contextual Information Bar -->
+<div class="bg-surface-container-high px-20 py-8 flex justify-between items-center">
+<div class="flex items-center gap-4 text-primary">
+<span class="material-symbols-outlined text-4xl" data-icon="lock">lock</span>
+<span class="text-2xl font-bold uppercase tracking-wider">Secure Kiosk Session</span>
+</div>
+<div class="text-2xl font-bold text-on-surface-variant">
+                    KIOSK ID: 082 | NEW DELHI TERMINAL
+                </div>
+</div>
+</div>
+</main>
+<!-- Floating Accessibility Toggle (Mandatory Kiosk Feature) -->
+<button class="fixed bottom-12 right-12 w-24 h-24 bg-black text-white rounded-full flex items-center justify-center shadow-2xl z-50 border-4 border-yellow-400">
+<span class="material-symbols-outlined text-5xl" data-icon="visibility">visibility</span>
+</button>
+</body></html>

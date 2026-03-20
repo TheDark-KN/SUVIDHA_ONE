@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+
+<html class="light" lang="hi"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>SUVIDHA ONE - Kiosk Landing</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#ff8c00",
+                        "background-light": "#f8f7f5",
+                        "background-dark": "#231a0f",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            font-family: 'Inter', sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+        .orange-gradient-text {
+            background: linear-gradient(135deg, #ff8c00 0%, #ff5e00 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 min-h-screen flex flex-col items-center justify-between overflow-hidden cursor-pointer" onclick="void(0)">
+<div class="w-full flex justify-center py-8">
+<div class="flex items-center gap-1.5 px-4 py-1.5 rounded-full bg-primary/10 border border-primary/20">
+<span class="material-symbols-outlined text-primary text-sm font-bold">auto_awesome</span>
+<span class="text-slate-900 dark:text-slate-100 text-sm font-bold tracking-widest uppercase">IN</span>
+</div>
+</div>
+<main class="flex-1 flex flex-col items-center justify-center text-center px-6 max-w-4xl">
+<div class="mb-4">
+<h1 class="text-7xl md:text-9xl font-black tracking-tighter orange-gradient-text leading-none py-2">
+                SUVIDHA ONE
+            </h1>
+</div>
+<div class="space-y-4 mb-12">
+<p class="text-xl md:text-2xl font-medium text-slate-600 dark:text-slate-400 italic">
+                "One Kiosk, All Services"
+            </p>
+<h2 class="text-3xl md:text-5xl font-bold text-slate-800 dark:text-slate-200">
+                सुविधा सबके लिए
+            </h2>
+</div>
+<div class="flex flex-wrap justify-center gap-4 mb-16">
+<div class="flex items-center gap-2 bg-white dark:bg-slate-800/50 px-5 py-3 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-700">
+<span class="material-symbols-outlined text-primary">bolt</span>
+<span class="font-semibold text-slate-700 dark:text-slate-300">Fast Service</span>
+</div>
+<div class="flex items-center gap-2 bg-white dark:bg-slate-800/50 px-5 py-3 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-700">
+<span class="material-symbols-outlined text-primary">lock</span>
+<span class="font-semibold text-slate-700 dark:text-slate-300">Secure</span>
+</div>
+<div class="flex items-center gap-2 bg-white dark:bg-slate-800/50 px-5 py-3 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-700">
+<span class="material-symbols-outlined text-primary">language</span>
+<span class="font-semibold text-slate-700 dark:text-slate-300">10+ Languages</span>
+</div>
+</div>
+<button class="group relative flex items-center justify-center gap-4 bg-primary hover:bg-primary/90 text-white px-12 py-8 rounded-3xl shadow-[0_20px_50px_rgba(255,140,0,0.3)] transition-all transform hover:scale-105 active:scale-95">
+<span class="material-symbols-outlined text-4xl group-hover:rotate-12 transition-transform">colors_spark</span>
+<span class="text-3xl md:text-4xl font-black tracking-tight uppercase">शुरू करने के लिए छुएं</span>
+<span class="material-symbols-outlined text-4xl group-hover:rotate-12 transition-transform">touch_app</span>
+<div class="absolute -top-4 -right-4 bg-white dark:bg-background-dark p-2 rounded-full border-4 border-primary">
+<span class="material-symbols-outlined text-primary font-bold">ads_click</span>
+</div>
+</button>
+</main>
+<footer class="w-full pb-12 pt-6 flex flex-col items-center gap-4">
+<div class="animate-bounce">
+<span class="material-symbols-outlined text-slate-400 dark:text-slate-600">keyboard_double_arrow_down</span>
+</div>
+<p class="text-slate-400 dark:text-slate-500 font-medium tracking-wide uppercase text-xs md:text-sm">
+            Tap anywhere to begin your journey
+        </p>
+<div class="mt-4 flex gap-8">
+<div class="w-24 h-1 bg-slate-200 dark:bg-slate-800 rounded-full"></div>
+<div class="w-24 h-1 bg-primary/40 rounded-full"></div>
+<div class="w-24 h-1 bg-slate-200 dark:bg-slate-800 rounded-full"></div>
+</div>
+</footer>
+<div class="fixed top-0 left-0 w-full h-full pointer-events-none opacity-5 dark:opacity-[0.03]">
+<svg height="100%" width="100%" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<pattern height="80" id="grid" patternunits="userSpaceOnUse" width="80">
+<path d="M 80 0 L 0 0 0 80" fill="none" stroke="currentColor" stroke-width="1"></path>
+</pattern>
+</defs>
+<rect fill="url(#grid)" height="100%" width="100%"></rect>
+</svg>
+</div>
+</body></html>

@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;500;700;900&amp;family=Noto+Sans+Devanagari:wght@400;700&amp;family=Public+Sans:wght@400;700;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "outline-variant": "#c4c6d3",
+              "tertiary-container": "#004d29",
+              "primary-fixed-dim": "#b4c5ff",
+              "on-surface-variant": "#444651",
+              "on-secondary": "#ffffff",
+              "error": "#ba1a1a",
+              "secondary": "#a33e00",
+              "inverse-on-surface": "#eff1f4",
+              "tertiary-fixed-dim": "#88d8a1",
+              "tertiary-fixed": "#a3f4bc",
+              "tertiary": "#00341a",
+              "surface": "#f7f9fc",
+              "outline": "#747683",
+              "on-surface": "#191c1e",
+              "surface-container-lowest": "#ffffff",
+              "on-primary-fixed": "#00174c",
+              "surface-container-low": "#f2f4f7",
+              "secondary-fixed-dim": "#ffb596",
+              "on-secondary-fixed-variant": "#7c2e00",
+              "surface-tint": "#3c5aad",
+              "primary": "#00256f",
+              "surface-dim": "#d8dadd",
+              "on-secondary-container": "#541d00",
+              "on-primary": "#ffffff",
+              "on-error-container": "#93000a",
+              "surface-container-high": "#e6e8eb",
+              "on-tertiary-fixed-variant": "#00522d",
+              "on-tertiary-fixed": "#00210f",
+              "primary-fixed": "#dbe1ff",
+              "on-background": "#191c1e",
+              "inverse-surface": "#2d3133",
+              "surface-container": "#eceef1",
+              "secondary-container": "#fe6500",
+              "on-error": "#ffffff",
+              "surface-container-highest": "#e0e3e6",
+              "background": "#f7f9fc",
+              "on-tertiary-container": "#70bf8b",
+              "secondary-fixed": "#ffdbcd",
+              "primary-container": "#1a3c8f",
+              "inverse-primary": "#b4c5ff",
+              "surface-bright": "#f7f9fc",
+              "on-primary-fixed-variant": "#204194",
+              "surface-variant": "#e0e3e6",
+              "on-tertiary": "#ffffff",
+              "error-container": "#ffdad6",
+              "on-secondary-fixed": "#360f00",
+              "on-primary-container": "#92abff"
+            },
+            fontFamily: {
+              "headline": ["Public Sans"],
+              "body": ["Public Sans"],
+              "label": ["Public Sans"]
+            },
+            borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 48;
+        }
+        .success-checkmark-size {
+            font-size: 150px !important;
+            color: #217346;
+        }
+        .bilingual-title {
+            font-family: 'Noto Sans', 'Noto Sans Devanagari', sans-serif;
+        }
+    </style>
+</head>
+<body class="bg-surface text-on-surface min-h-screen flex flex-col font-body">
+<!-- TopNavBar -->
+<nav class="bg-white/80 dark:bg-slate-900/80 backdrop-blur-md shadow-xl shadow-blue-900/5 docked full-width top-0 sticky flex justify-between items-center w-full px-16 h-[120px] z-50">
+<div class="flex items-center gap-4">
+<span class="text-5xl font-black text-blue-900 dark:text-blue-100">Suvidha One</span>
+</div>
+<div class="flex items-center gap-12">
+<div class="flex items-center gap-8">
+<button class="text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 p-4 rounded-xl transition-all">
+<span class="material-symbols-outlined scale-150">language</span>
+</button>
+<button class="text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 p-4 rounded-xl transition-all">
+<span class="material-symbols-outlined scale-150">record_voice_over</span>
+</button>
+<button class="text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 p-4 rounded-xl transition-all">
+<span class="material-symbols-outlined scale-150">account_circle</span>
+</button>
+</div>
+</div>
+</nav>
+<!-- SideNavBar Accessibility (Kiosk Feature) -->
+<aside class="fixed left-0 top-1/2 -translate-y-1/2 z-[60] flex flex-col p-4 bg-black dark:bg-black rounded-r-3xl h-fit self-center shadow-2xl shadow-black/50">
+<div class="mb-6 px-2 text-center">
+<p class="text-yellow-400 font-bold text-[18px] uppercase tracking-wider">Accessibility</p>
+</div>
+<button class="flex flex-col items-center justify-center p-6 mb-4 hover:bg-yellow-500 transition-all text-white active:scale-105 h-[100px]">
+<span class="material-symbols-outlined text-yellow-400 text-5xl">contrast</span>
+<span class="text-[14px] mt-2">Contrast</span>
+</button>
+<button class="flex flex-col items-center justify-center p-6 hover:bg-yellow-500 transition-all text-white active:scale-105 h-[100px]">
+<span class="material-symbols-outlined text-yellow-400 text-5xl">format_size</span>
+<span class="text-[14px] mt-2">Text Size</span>
+</button>
+</aside>
+<!-- Main Content Canvas -->
+<main class="flex-grow flex flex-col items-center px-16 py-12 pb-[200px]">
+<!-- Success Animation/Icon Block -->
+<div class="flex flex-col items-center mb-12">
+<div class="bg-emerald-50 rounded-full p-8 mb-6">
+<span class="material-symbols-outlined success-checkmark-size" data-weight="fill" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+</div>
+<h1 class="bilingual-title font-bold text-[42px] text-center leading-tight">
+                Payment Successful!<br/>
+<span class="text-primary-container">भुगतान सफल!</span>
+</h1>
+</div>
+<!-- Transaction Card (Bento-style depth) -->
+<div class="w-full max-w-4xl bg-surface-container-lowest shadow-2xl shadow-blue-900/5 rounded-[48px] p-12 mb-12 flex flex-col items-center text-center">
+<p class="text-on-surface-variant font-medium text-[32px] mb-2">Total Amount Paid</p>
+<h2 class="font-bold text-[56px] text-primary mb-10">₹2,050.00</h2>
+<div class="w-full grid grid-cols-1 md:grid-cols-3 gap-8 py-8 border-t-2 border-surface-container-high">
+<div class="flex flex-col gap-2">
+<span class="text-on-surface-variant/60 font-medium text-[24px]">Transaction ID</span>
+<span class="text-on-surface font-bold text-[24px]">TXN9876543210</span>
+</div>
+<div class="flex flex-col gap-2">
+<span class="text-on-surface-variant/60 font-medium text-[24px]">Reference</span>
+<span class="text-on-surface font-bold text-[24px]">Tata Power - 12345</span>
+</div>
+<div class="flex flex-col gap-2">
+<span class="text-on-surface-variant/60 font-medium text-[24px]">Date &amp; Time</span>
+<span class="text-on-surface font-bold text-[24px]">Feb 27, 2026 | 10:30 AM</span>
+</div>
+</div>
+</div>
+<!-- Action Grid -->
+<div class="w-full max-w-5xl grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
+<button class="bg-surface-container-high hover:bg-surface-container-highest flex flex-col items-center justify-center p-10 rounded-[32px] transition-all active:scale-95 group">
+<div class="bg-white p-6 rounded-full shadow-lg mb-6 group-hover:bg-primary group-hover:text-white transition-colors">
+<span class="material-symbols-outlined text-5xl">print</span>
+</div>
+<span class="text-[32px] font-bold text-primary">Print Receipt</span>
+</button>
+<button class="bg-surface-container-high hover:bg-surface-container-highest flex flex-col items-center justify-center p-10 rounded-[32px] transition-all active:scale-95 group">
+<div class="bg-white p-6 rounded-full shadow-lg mb-6 group-hover:bg-primary group-hover:text-white transition-colors">
+<span class="material-symbols-outlined text-5xl">sms</span>
+</div>
+<span class="text-[32px] font-bold text-primary">Send SMS</span>
+</button>
+<button class="bg-surface-container-high hover:bg-surface-container-highest flex flex-col items-center justify-center p-10 rounded-[32px] transition-all active:scale-95 group">
+<div class="bg-white p-6 rounded-full shadow-lg mb-6 group-hover:bg-primary group-hover:text-white transition-colors">
+<span class="material-symbols-outlined text-5xl">chat</span>
+</div>
+<span class="text-[32px] font-bold text-primary">Send WhatsApp</span>
+</button>
+</div>
+<!-- Final CTA -->
+<div class="w-full max-w-2xl">
+<button class="w-full bg-secondary hover:brightness-110 text-white font-black text-[36px] py-10 px-16 rounded-[32px] shadow-2xl shadow-secondary/30 flex items-center justify-center gap-6 active:scale-95 transition-all">
+<span>DONE - Return Home</span>
+<span class="material-symbols-outlined text-5xl">home</span>
+</button>
+</div>
+</main>
+<!-- BottomNavBar (Suppressed check: Visible because Success is a terminal state but allows return Home) -->
+<nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-8 pb-8 pt-4 bg-slate-100 dark:bg-slate-800 shadow-[0_-10px_40px_rgba(0,0,0,0.1)] border-t-4 border-blue-900/10 h-[140px]">
+<div class="flex flex-col items-center justify-center text-blue-900 dark:text-blue-200 px-8 h-[100px] hover:bg-blue-50 transition-all rounded-3xl cursor-pointer">
+<span class="material-symbols-outlined text-5xl">home</span>
+<span class="font-['Noto_Sans'] font-medium text-[24px]">Home</span>
+</div>
+<div class="flex flex-col items-center justify-center bg-orange-600 text-white rounded-3xl px-12 py-4 h-[100px] brightness-110 scale-98 transition-all min-w-[200px] cursor-pointer">
+<span class="material-symbols-outlined text-5xl">history</span>
+<span class="font-['Noto_Sans'] font-medium text-[24px]">History</span>
+</div>
+<div class="flex flex-col items-center justify-center text-blue-900 dark:text-blue-200 px-8 h-[100px] hover:bg-blue-50 transition-all rounded-3xl cursor-pointer">
+<span class="material-symbols-outlined text-5xl">help</span>
+<span class="font-['Noto_Sans'] font-medium text-[24px]">Help</span>
+</div>
+<div class="flex flex-col items-center justify-center text-blue-900 dark:text-blue-200 px-8 h-[100px] hover:bg-blue-50 transition-all rounded-3xl cursor-pointer">
+<span class="material-symbols-outlined text-5xl">settings</span>
+<span class="font-['Noto_Sans'] font-medium text-[24px]">Settings</span>
+</div>
+</nav>
+</body></html>
