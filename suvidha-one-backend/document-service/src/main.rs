@@ -3,6 +3,7 @@ use axum::{routing::{post, get}, extract::{State, Path, Json, Extension}, respon
 use sqlx::postgres::PgPoolOptions;
 use shared::{AppConfig, JwtService};
 use std::time::Duration;
+use tower_http::cors::{Any, CorsLayer};
 
 #[derive(Clone)]
 pub struct AppState {
@@ -93,7 +94,30 @@ async fn main() -> anyhow::Result<()> {
     let jwt_svc = JwtService::new(config.jwt.private_key_pem.as_bytes(), config.jwt.public_key_pem.as_bytes(), config.jwt.issuer.clone(), config.jwt.audience.clone(), config.jwt.access_ttl_secs, config.jwt.refresh_ttl_secs)?;
 
     let state = AppState { jwt_svc: Arc::new(jwt_svc), db_pool, config };
-    let app = build_router(state.clone());
+
+    // CORS configuration
+    let cors = if std::env::var("FRONTEND_URLS").unwrap_or_else(|_| std::env::var("FRONTEND_URL").unwrap_or("*")) == "*" {
+        CorsLayer::new()
+            .allow_origin(Any)
+            .allow_methods(Any)
+            .allow_headers(Any)
+    } else {
+        let origins = std::env::var("FRONTEND_URLS")
+            .or_else(|_| std::env::var("FRONTEND_URL"))
+            .unwrap_or_else(|_| "http://localhost:3000".to_string())
+            .split(',')
+            .map(|s| s.trim())
+            .filter(|s| !s.is_empty())
+            .map(|s| s.parse().unwrap())
+            .collect::<Vec<_>>();
+        CorsLayer::new()
+            .allow_origin(origins.into_iter())
+            .allow_methods(Any)
+            .allow_headers(Any)
+    };
+
+    let app = build_router(state.clone())
+        .layer(cors);
 
     tracing::info!("Starting document-service on {}", state.config.server.port);
     let listener = tokio::net::TcpListener::bind(format!("0.0.0.0:{}", state.config.server.port)).await?;

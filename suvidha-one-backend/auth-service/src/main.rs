@@ -7,6 +7,7 @@ use std::sync::Arc;
 use axum::Router;
 use shared::{AppConfig, JwtService};
 use deadpool_redis::Pool;
+use tower_http::cors::{Any, CorsLayer};
 
 #[derive(Clone)]
 pub struct AppState {
@@ -79,7 +80,29 @@ async fn main() -> anyhow::Result<()> {
         config,
     };
 
-    let app = build_router(state.clone());
+    // CORS configuration
+    let cors = if std::env::var("FRONTEND_URLS").unwrap_or_else(|_| std::env::var("FRONTEND_URL").unwrap_or("*")) == "*" {
+        CorsLayer::new()
+            .allow_origin(Any)
+            .allow_methods(Any)
+            .allow_headers(Any)
+    } else {
+        let origins = std::env::var("FRONTEND_URLS")
+            .or_else(|_| std::env::var("FRONTEND_URL"))
+            .unwrap_or_else(|_| "http://localhost:3000".to_string())
+            .split(',')
+            .map(|s| s.trim())
+            .filter(|s| !s.is_empty())
+            .map(|s| s.parse().unwrap())
+            .collect::<Vec<_>>();
+        CorsLayer::new()
+            .allow_origin(origins.into_iter())
+            .allow_methods(Any)
+            .allow_headers(Any)
+    };
+
+    let app = build_router(state.clone())
+        .layer(cors);
 
     let addr = format!("{}:{}", state.config.server.host, state.config.server.port);
     tracing::info!("Starting auth-service on {}", addr);
