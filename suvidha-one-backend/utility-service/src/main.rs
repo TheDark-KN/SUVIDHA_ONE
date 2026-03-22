@@ -105,8 +105,9 @@ async fn main() -> anyhow::Result<()> {
     let app = build_router(state.clone())
         .layer(cors);
 
-    tracing::info!("Starting utility-service on {}", state.config.server.port);
-    let listener = tokio::net::TcpListener::bind(format!("0.0.0.0:{}", state.config.server.port)).await?;
+    let port = std::env::var("PORT").unwrap_or_else(|_| "3003".to_string()).parse::<u16>().unwrap_or(3003);
+    tracing::info!("Starting utility-service on port {}", port);
+    let listener = tokio::net::TcpListener::bind(format!("0.0.0.0:{}", port)).await?;
     axum::serve(listener, app).await?;
 
     Ok(())
