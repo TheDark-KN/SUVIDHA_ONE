@@ -47,9 +47,9 @@ async fn main() -> anyhow::Result<()> {
             },
             jwt: shared::config::JwtConfig {
                 private_key_pem: std::env::var("JWT_PRIVATE_KEY_PEM")
-                    .unwrap_or_else(|_| include_str!("../../../keys/private.pem").to_string()),
+                    .unwrap_or_else(|_| include_str!("../../keys/private.pem").to_string()),
                 public_key_pem: std::env::var("JWT_PUBLIC_KEY_PEM")
-                    .unwrap_or_else(|_| include_str!("../../../keys/public.pem").to_string()),
+                    .unwrap_or_else(|_| include_str!("../../keys/public.pem").to_string()),
                 access_ttl_secs: 900,
                 refresh_ttl_secs: 604800,
                 issuer: "suvidha-one-auth".to_string(),
