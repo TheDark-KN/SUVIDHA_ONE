@@ -125,7 +125,7 @@ async fn main() -> anyhow::Result<()> {
     let state = AppState { jwt_svc: Arc::new(jwt_svc), redis_pool, config };
 
     // CORS configuration
-    let cors = if std::env::var("FRONTEND_URLS").unwrap_or_else(|_| std::env::var("FRONTEND_URL").unwrap_or("*")) == "*" {
+    let cors = if std::env::var("FRONTEND_URLS").unwrap_or_else(|_| std::env::var("FRONTEND_URL").unwrap_or_else(|_| "*".to_string())) == "*" {
         CorsLayer::new()
             .allow_origin(Any)
             .allow_methods(Any)
@@ -140,7 +140,7 @@ async fn main() -> anyhow::Result<()> {
             .map(|s| s.parse().unwrap())
             .collect::<Vec<_>>();
         CorsLayer::new()
-            .allow_origin(origins.into_iter())
+            .allow_origin(origins)
             .allow_methods(Any)
             .allow_headers(Any)
     };

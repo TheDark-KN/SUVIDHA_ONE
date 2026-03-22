@@ -39,11 +39,8 @@ constant_time_eq = "0.3"
 utoipa = { version = "4", features = ["axum", "chrono"] }
 config = "0.13"
 dotenvy = "0.15"
-tower = "0.4"
+tower = "0.5"
 tower-http = { version = "0.5", features = ["cors", "trace", "compression-gzip", "set-header"] }
-opentelemetry = { version = "0.21", features = ["trace"] }
-opentelemetry_sdk = { version = "0.21", features = ["rt-tokio"] }
-opentelemetry-otlp = "0.14"
 prometheus = "0.13"
 rust_decimal = { version = "1", features = ["serde", "postgres", "tokio-pg"] }
 async-trait = "0.1"

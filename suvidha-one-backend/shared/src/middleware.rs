@@ -125,7 +125,7 @@ pub async fn rate_limit_middleware(
     })?;
     
     // Set expiry on the key
-    let _: () = conn.expire(&rate_key, window_secs as i64).await.map_err(|e| {
+    let _: () = conn.expire(&rate_key, window_secs as usize).await.map_err(|e| {
         tracing::error!("Redis expire error: {}", e);
         AppError::Cache(format!("Rate limit expire failed: {}", e))
     })?;
