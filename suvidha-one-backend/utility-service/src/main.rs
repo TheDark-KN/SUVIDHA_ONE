@@ -5,7 +5,7 @@ use std::sync::Arc;
 use axum::Router;
 use sqlx::postgres::PgPoolOptions;
 use deadpool_redis::Pool;
-use shared::{AppConfig, JwtService};
+use shared::{AppConfig, JwtService, TtsService};
 use std::time::Duration;
 use tower_http::cors::{Any, CorsLayer};
 
@@ -15,11 +15,13 @@ pub struct AppState {
     pub db_pool: sqlx::PgPool,
     pub redis_pool: Pool,
     pub config: AppConfig,
+    pub tts_service: Arc<TtsService>,
 }
 
 pub fn build_router(state: AppState) -> Router {
     Router::new()
         .merge(routes::utility_routes())
+        .nest("/api/tts", routes::tts_routes())
         .merge(routes::health_routes())
         .with_state(state)
 }
@@ -68,7 +70,19 @@ async fn main() -> anyhow::Result<()> {
         config.jwt.refresh_ttl_secs,
     )?;
 
-    let state = AppState { jwt_svc: Arc::new(jwt_svc), db_pool, redis_pool, config };
+    // Initialize TTS service (optional - gracefully handle missing API key)
+    let tts_service = TtsService::from_env().unwrap_or_else(|_| {
+        tracing::warn!("GOOGLE_TTS_API_KEY not set - TTS service will be unavailable");
+        TtsService::new(String::new())
+    });
+
+    let state = AppState { 
+        jwt_svc: Arc::new(jwt_svc), 
+        db_pool, 
+        redis_pool, 
+        config,
+        tts_service: Arc::new(tts_service),
+    };
 
     // CORS configuration
     let cors = if std::env::var("FRONTEND_URLS").unwrap_or_else(|_| std::env::var("FRONTEND_URL").unwrap_or_else(|_| "*".to_string())) == "*" {

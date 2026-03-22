@@ -32,6 +32,12 @@ pub enum AppError {
     #[error("External API error: {0}")]
     ExternalApi(String),
 
+    #[error("External service error: {0}")]
+    External(String),
+
+    #[error("Configuration error: {0}")]
+    Config(String),
+
     #[error("Database error: {0}")]
     Database(#[from] sqlx::Error),
 
@@ -212,6 +218,19 @@ impl IntoResponse for AppError {
                 9005,
                 "External service unavailable.".into(),
             ),
+            AppError::External(_) => (
+                StatusCode::BAD_GATEWAY,
+                9007,
+                "External service error.".into(),
+            ),
+            AppError::Config(_) => {
+                tracing::error!("Config error: {:?}", self);
+                (
+                    StatusCode::INTERNAL_SERVER_ERROR,
+                    9008,
+                    "Service configuration error.".into(),
+                )
+            }
             AppError::Database(_) | AppError::Internal(_) => {
                 tracing::error!("Internal error: {:?}", self);
                 (
