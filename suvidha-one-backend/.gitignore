@@ -10,11 +10,11 @@
 .env.local
 .env.*.local
 
-# Keys and secrets
-keys/
-*.pem
-*.key
-*.crt
+# Keys and secrets (disabled for deployment)
+# keys/
+# *.pem
+# *.key
+# *.crt
 
 # IDE and editor files
 .idea/
