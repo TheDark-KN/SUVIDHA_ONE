@@ -70,11 +70,8 @@ async fn main() -> anyhow::Result<()> {
         config.jwt.refresh_ttl_secs,
     )?;
 
-    // Initialize TTS service (optional - gracefully handle missing API key)
-    let tts_service = TtsService::from_env().unwrap_or_else(|_| {
-        tracing::warn!("GOOGLE_TTS_API_KEY not set - TTS service will be unavailable");
-        TtsService::new(String::new())
-    });
+    // Initialize TTS service (Edge TTS - free, no API key required)
+    let tts_service = TtsService::new();
 
     let state = AppState { 
         jwt_svc: Arc::new(jwt_svc), 

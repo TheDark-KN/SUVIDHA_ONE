@@ -3,7 +3,7 @@ services:
     name: suvidha-one-backend
     env: rust
     plan: free
-    buildCommand: cargo build --release
+    buildCommand: pip install edge-tts && cargo build --release
     startCommand: cargo run --release
     envVars:
       - key: DATABASE_URL
@@ -19,8 +19,6 @@ services:
         sync: false
       - key: FRONTEND_URLS
         value: https://suvidha-one-frontend.vercel.app
-      - key: GOOGLE_TTS_API_KEY
-        sync: false
     autoDeploy: true
     healthCheckPath: /health
 
