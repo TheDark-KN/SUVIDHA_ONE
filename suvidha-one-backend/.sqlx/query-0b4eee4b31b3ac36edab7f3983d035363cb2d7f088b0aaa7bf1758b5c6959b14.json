@@ -1,0 +1,50 @@
+{
+  "db_name": "PostgreSQL",
+  "query": "SELECT kiosk_id, state_code, district_code, location, status, last_heartbeat FROM kiosks ORDER BY last_heartbeat DESC LIMIT 100",
+  "describe": {
+    "columns": [
+      {
+        "ordinal": 0,
+        "name": "kiosk_id",
+        "type_info": "Varchar"
+      },
+      {
+        "ordinal": 1,
+        "name": "state_code",
+        "type_info": "Varchar"
+      },
+      {
+        "ordinal": 2,
+        "name": "district_code",
+        "type_info": "Varchar"
+      },
+      {
+        "ordinal": 3,
+        "name": "location",
+        "type_info": "Varchar"
+      },
+      {
+        "ordinal": 4,
+        "name": "status",
+        "type_info": "Varchar"
+      },
+      {
+        "ordinal": 5,
+        "name": "last_heartbeat",
+        "type_info": "Timestamptz"
+      }
+    ],
+    "parameters": {
+      "Left": []
+    },
+    "nullable": [
+      false,
+      false,
+      false,
+      false,
+      false,
+      false
+    ]
+  },
+  "hash": "0b4eee4b31b3ac36edab7f3983d035363cb2d7f088b0aaa7bf1758b5c6959b14"
+}

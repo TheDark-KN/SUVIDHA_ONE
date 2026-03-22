@@ -1,0 +1,16 @@
+{
+  "db_name": "PostgreSQL",
+  "query": "UPDATE payments SET status = $1, tx_ref = COALESCE($2, tx_ref), updated_at = NOW()\n         WHERE tx_ref = $3",
+  "describe": {
+    "columns": [],
+    "parameters": {
+      "Left": [
+        "Varchar",
+        "Varchar",
+        "Text"
+      ]
+    },
+    "nullable": []
+  },
+  "hash": "4f2f07bc09d33ba9967b8fe437d87d93f28971c7fcd2a4984b700d1ead34c5fc"
+}

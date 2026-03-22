@@ -1,0 +1,15 @@
+{
+  "db_name": "PostgreSQL",
+  "query": "UPDATE payments SET status = $1, updated_at = NOW() WHERE payment_id = $2",
+  "describe": {
+    "columns": [],
+    "parameters": {
+      "Left": [
+        "Varchar",
+        "Uuid"
+      ]
+    },
+    "nullable": []
+  },
+  "hash": "4d82cd1c2976e17edf2f347d37a58e39709174722c6ff33d83ef75e7713913f0"
+}

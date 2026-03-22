@@ -1,0 +1,14 @@
+{
+  "db_name": "PostgreSQL",
+  "query": "UPDATE kiosks SET last_heartbeat = NOW(), status = 'Active' WHERE kiosk_id = $1",
+  "describe": {
+    "columns": [],
+    "parameters": {
+      "Left": [
+        "Text"
+      ]
+    },
+    "nullable": []
+  },
+  "hash": "472a722adfb25e8ced6f3a5c73c558715801a804d5e3da44633eaa6d06e21829"
+}

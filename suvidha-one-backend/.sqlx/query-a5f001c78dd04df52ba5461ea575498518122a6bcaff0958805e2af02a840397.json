@@ -1,0 +1,17 @@
+{
+  "db_name": "PostgreSQL",
+  "query": "INSERT INTO kiosks (kiosk_id, state_code, district_code, location, status, last_heartbeat)\n         VALUES ($1, $2, $3, $4, 'Active', NOW())\n         ON CONFLICT (kiosk_id) DO UPDATE SET status = 'Active', last_heartbeat = NOW()",
+  "describe": {
+    "columns": [],
+    "parameters": {
+      "Left": [
+        "Varchar",
+        "Varchar",
+        "Varchar",
+        "Varchar"
+      ]
+    },
+    "nullable": []
+  },
+  "hash": "a5f001c78dd04df52ba5461ea575498518122a6bcaff0958805e2af02a840397"
+}

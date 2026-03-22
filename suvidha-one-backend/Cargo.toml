@@ -18,7 +18,7 @@ tokio = { version = "1", features = ["full"] }
 serde = { version = "1", features = ["derive"] }
 serde_json = "1"
 serde_with = "3"
-sqlx = { version = "0.7", features = ["postgres", "uuid", "chrono", "runtime-tokio", "migrate", "rust_decimal"] }
+sqlx = { version = "0.7", features = ["postgres", "uuid", "chrono", "runtime-tokio", "migrate", "rust_decimal", "tls-native-tls"] }
 deadpool-redis = "0.12"
 redis = { version = "0.23", features = ["tokio-comp"] }
 jsonwebtoken = "9"

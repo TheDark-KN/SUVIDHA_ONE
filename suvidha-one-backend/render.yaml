@@ -4,7 +4,7 @@ services:
     env: rust
     plan: free
     rootDir: suvidha-one-backend
-    buildCommand: pip install edge-tts && cargo build --release
+    buildCommand: pip install edge-tts && SQLX_OFFLINE=true cargo build --release
     startCommand: cargo run --release --bin utility-service
     envVars:
       - key: DATABASE_URL
@@ -15,5 +15,7 @@ services:
         sync: false
       - key: FRONTEND_URLS
         value: https://suvidha-one-frontend.vercel.app
+      - key: SQLX_OFFLINE
+        value: "true"
     autoDeploy: true
     healthCheckPath: /health

@@ -1,0 +1,14 @@
+{
+  "db_name": "PostgreSQL",
+  "query": "UPDATE bills SET status = 'Paid', paid_at = NOW() WHERE bill_id = $1",
+  "describe": {
+    "columns": [],
+    "parameters": {
+      "Left": [
+        "Uuid"
+      ]
+    },
+    "nullable": []
+  },
+  "hash": "ce3878b299251a9e862d059c7ba95f1ed269c00ece82f787dea1097802d7d7b8"
+}

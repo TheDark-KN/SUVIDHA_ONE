@@ -41,15 +41,16 @@ async fn list_documents(
     State(state): State<AppState>,
     Extension(claims): Extension<shared::jwt::AccessClaims>,
 ) -> Result<impl IntoResponse, shared::AppError> {
-    let docs: Vec<serde_json::Value> = sqlx::query!(
+    let rows = sqlx::query!(
         "SELECT document_id, doc_type, name, status, created_at FROM documents WHERE user_id = $1 ORDER BY created_at DESC",
         claims.sub
     )
     .fetch_all(&state.db_pool)
-    .await?
-    .into_iter()
-    .map(|r| serde_json::json!({ "document_id": r.document_id, "doc_type": r.doc_type, "name": r.name, "status": r.status, "created_at": r.created_at }))
-    .collect();
+    .await?;
+    
+    let docs: Vec<serde_json::Value> = rows.into_iter()
+        .map(|r| serde_json::json!({ "document_id": r.document_id, "doc_type": r.doc_type, "name": r.name, "status": r.status, "created_at": r.created_at }))
+        .collect();
 
     Ok(shared::response::ok(docs))
 }
@@ -59,16 +60,15 @@ async fn get_document(
     Extension(claims): Extension<shared::jwt::AccessClaims>,
     Path(doc_id): Path<uuid::Uuid>,
 ) -> Result<impl IntoResponse, shared::AppError> {
-    let doc: Option<serde_json::Value> = sqlx::query!(
+    let row = sqlx::query!(
         "SELECT document_id, doc_type, name, status, created_at FROM documents WHERE document_id = $1 AND user_id = $2",
         doc_id, claims.sub
     )
     .fetch_optional(&state.db_pool)
-    .await?
-    .map(|r| serde_json::json!({ "document_id": r.document_id, "doc_type": r.doc_type, "name": r.name, "status": r.status, "created_at": r.created_at }));
+    .await?;
 
-    match doc {
-        Some(d) => Ok(shared::response::ok(d)),
+    match row {
+        Some(r) => Ok(shared::response::ok(serde_json::json!({ "document_id": r.document_id, "doc_type": r.doc_type, "name": r.name, "status": r.status, "created_at": r.created_at }))),
         None => Err(shared::AppError::NotFound("Document not found".to_string())),
     }
 }

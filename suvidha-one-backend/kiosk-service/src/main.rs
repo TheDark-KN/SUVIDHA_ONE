@@ -49,21 +49,22 @@ async fn register_kiosk(
 async fn list_kiosks(
     State(state): State<AppState>,
 ) -> Result<impl IntoResponse, shared::AppError> {
-    let kiosks: Vec<serde_json::Value> = sqlx::query!(
+    let rows = sqlx::query!(
         "SELECT kiosk_id, state_code, district_code, location, status, last_heartbeat FROM kiosks ORDER BY last_heartbeat DESC LIMIT 100"
     )
     .fetch_all(&state.db_pool)
-    .await?
-    .into_iter()
-    .map(|r| serde_json::json!({
-        "kiosk_id": r.kiosk_id,
-        "state_code": r.state_code,
-        "district_code": r.district_code,
-        "location": r.location,
-        "status": r.status,
-        "last_heartbeat": r.last_heartbeat
-    }))
-    .collect();
+    .await?;
+    
+    let kiosks: Vec<serde_json::Value> = rows.into_iter()
+        .map(|r| serde_json::json!({
+            "kiosk_id": r.kiosk_id,
+            "state_code": r.state_code,
+            "district_code": r.district_code,
+            "location": r.location,
+            "status": r.status,
+            "last_heartbeat": r.last_heartbeat
+        }))
+        .collect();
 
     Ok(shared::response::ok(kiosks))
 }
@@ -72,23 +73,22 @@ async fn get_kiosk(
     State(state): State<AppState>,
     Path(kiosk_id): Path<String>,
 ) -> Result<impl IntoResponse, shared::AppError> {
-    let kiosk: Option<serde_json::Value> = sqlx::query!(
+    let row = sqlx::query!(
         "SELECT kiosk_id, state_code, district_code, location, status, last_heartbeat FROM kiosks WHERE kiosk_id = $1",
         kiosk_id
     )
     .fetch_optional(&state.db_pool)
-    .await?
-    .map(|r| serde_json::json!({
-        "kiosk_id": r.kiosk_id,
-        "state_code": r.state_code,
-        "district_code": r.district_code,
-        "location": r.location,
-        "status": r.status,
-        "last_heartbeat": r.last_heartbeat
-    }));
+    .await?;
 
-    match kiosk {
-        Some(k) => Ok(shared::response::ok(k)),
+    match row {
+        Some(r) => Ok(shared::response::ok(serde_json::json!({
+            "kiosk_id": r.kiosk_id,
+            "state_code": r.state_code,
+            "district_code": r.district_code,
+            "location": r.location,
+            "status": r.status,
+            "last_heartbeat": r.last_heartbeat
+        }))),
         None => Err(shared::AppError::NotFound("Kiosk not found".to_string())),
     }
 }

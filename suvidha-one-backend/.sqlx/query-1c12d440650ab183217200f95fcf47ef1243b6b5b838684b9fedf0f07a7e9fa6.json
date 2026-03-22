@@ -1,0 +1,16 @@
+{
+  "db_name": "PostgreSQL",
+  "query": "UPDATE grievances SET status = $1, updated_at = NOW() WHERE grievance_id = $2 AND user_id = $3",
+  "describe": {
+    "columns": [],
+    "parameters": {
+      "Left": [
+        "Varchar",
+        "Uuid",
+        "Uuid"
+      ]
+    },
+    "nullable": []
+  },
+  "hash": "1c12d440650ab183217200f95fcf47ef1243b6b5b838684b9fedf0f07a7e9fa6"
+}
