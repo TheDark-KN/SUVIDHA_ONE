@@ -2,6 +2,7 @@ pub mod bill;
 pub mod service;
 pub mod health;
 pub mod tts;
+pub mod voice;
 
 use axum::{extract::State, response::IntoResponse, Json};
 use serde::Serialize;

@@ -5,7 +5,7 @@ use std::sync::Arc;
 use axum::Router;
 use sqlx::postgres::PgPoolOptions;
 use deadpool_redis::Pool;
-use shared::{AppConfig, JwtService, TtsService};
+use shared::{AppConfig, JwtService, TtsService, BhashiniService};
 use std::time::Duration;
 use tower_http::cors::{Any, CorsLayer};
 
@@ -16,12 +16,14 @@ pub struct AppState {
     pub redis_pool: Pool,
     pub config: AppConfig,
     pub tts_service: Arc<TtsService>,
+    pub bhashini_service: Arc<BhashiniService>,
 }
 
 pub fn build_router(state: AppState) -> Router {
     Router::new()
         .merge(routes::utility_routes())
         .nest("/api/tts", routes::tts_routes())
+        .nest("/api/voice", routes::voice_routes())
         .merge(routes::health_routes())
         .with_state(state)
 }
@@ -85,12 +87,25 @@ async fn main() -> anyhow::Result<()> {
     // Initialize TTS service (Edge TTS - free, no API key required)
     let tts_service = TtsService::new();
 
+    // Initialize Bhashini service (optional - graceful fallback if not configured)
+    let bhashini_service = match BhashiniService::new() {
+        Ok(svc) => {
+            tracing::info!("✅ Bhashini voice service initialized successfully");
+            svc
+        }
+        Err(e) => {
+            tracing::warn!("⚠️  Bhashini not configured: {}. Voice features will use dummy service.", e);
+            BhashiniService::new_dummy()
+        }
+    };
+
     let state = AppState { 
         jwt_svc: Arc::new(jwt_svc), 
         db_pool, 
         redis_pool, 
         config,
         tts_service: Arc::new(tts_service),
+        bhashini_service: Arc::new(bhashini_service),
     };
 
     // CORS configuration
@@ -118,7 +133,8 @@ async fn main() -> anyhow::Result<()> {
         .layer(cors);
 
     let port = std::env::var("PORT").unwrap_or_else(|_| "3003".to_string()).parse::<u16>().unwrap_or(3003);
-    tracing::info!("Starting utility-service on port {}", port);
+    tracing::info!("🚀 Starting utility-service on port {}", port);
+    tracing::info!("📢 Voice endpoints: /api/voice/input, /api/voice/asr, /api/voice/tts");
     let listener = tokio::net::TcpListener::bind(format!("0.0.0.0:{}", port)).await?;
     axum::serve(listener, app).await?;
 

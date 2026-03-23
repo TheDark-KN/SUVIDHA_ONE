@@ -30,6 +30,19 @@
   --shadow-xl: 0 12px 48px rgba(0, 0, 0, 0.2);
 }
 
+/* Dark Mode Variables */
+.dark {
+  --background: #0A0A0F;
+  --foreground: #E5E5E5;
+  --text-primary: #E5E5E5;
+  --text-secondary: #A3A3A3;
+  --text-muted: #737373;
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.3);
+  --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.4);
+  --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.5);
+  --shadow-xl: 0 12px 48px rgba(0, 0, 0, 0.6);
+}
+
 * {
   box-sizing: border-box;
   padding: 0;
@@ -43,11 +56,36 @@ body {
   font-family: 'Noto Sans', 'Noto Sans Devanagari', Roboto, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  /* Kiosk mode - prevent scrolling */
+  overflow: hidden;
+  height: 100vh;
+  touch-action: manipulation;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
 
 body {
   color: var(--foreground);
   background: var(--background);
+}
+
+/* Kiosk-specific styles */
+.kiosk-no-scroll {
+  overflow: hidden !important;
+  height: 100vh !important;
+}
+
+.kiosk-touch {
+  touch-action: manipulation;
+}
+
+.kiosk-selectable {
+  -webkit-user-select: text !important;
+  -moz-user-select: text !important;
+  -ms-user-select: text !important;
+  user-select: text !important;
 }
 
 /* Custom Scrollbar */
@@ -154,6 +192,34 @@ body {
   .touch-target {
     min-width: 60px;
     min-height: 60px;
+  }
+
+  /* Kiosk touch targets - 80px+ minimum */
+  .kiosk-button {
+    min-width: 80px;
+    min-height: 80px;
+    padding: 1rem;
+    border-radius: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.1s ease, box-shadow 0.2s ease;
+  }
+
+  .kiosk-button:active {
+    transform: scale(0.95);
+  }
+
+  .kiosk-button-large {
+    min-width: 120px;
+    min-height: 120px;
+    padding: 1.5rem;
+  }
+
+  .kiosk-button-xlarge {
+    min-width: 160px;
+    min-height: 160px;
+    padding: 2rem;
   }
 
   .service-icon {

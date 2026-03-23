@@ -9,6 +9,7 @@ pub mod validation;
 pub mod tts;
 pub mod sms;
 pub mod razorpay;
+pub mod bhashini;
 
 pub use error::{AppError, AuthError};
 pub use jwt::{JwtService, AccessClaims, RefreshClaims, Role};
@@ -22,4 +23,8 @@ pub use razorpay::{
     RazorpayService, RazorpayError, RazorpayOrder, RazorpayPayment,
     KioskPaymentRequest, KioskPaymentResponse, PaymentVerificationRequest,
     RazorpayWebhookEvent, decimal_to_paise, paise_to_decimal
+};
+pub use bhashini::{
+    BhashiniService, BhashiniError, BhashiniLanguage, BhashiniConfig,
+    AsrResult, TtsResult, TranslationResult, VoiceInputRequest, VoiceResponse
 };
