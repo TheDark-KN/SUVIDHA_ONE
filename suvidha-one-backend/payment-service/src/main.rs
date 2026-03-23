@@ -7,9 +7,14 @@ use std::sync::Arc;
 use axum::Router;
 use sqlx::postgres::{PgPool, PgPoolOptions};
 use deadpool_redis::Pool;
-use shared::{AppConfig, JwtService};
+use shared::{AppConfig, JwtService, RazorpayService};
 use std::time::Duration;
 use tower_http::cors::{Any, CorsLayer};
+
+/// Helper function to fix PEM newlines from env vars
+fn fix_pem_newlines(pem: &str) -> String {
+    pem.replace("\\n", "\n")
+}
 
 #[derive(Clone)]
 pub struct AppState {
@@ -17,6 +22,7 @@ pub struct AppState {
     pub db_pool: PgPool,
     pub redis_pool: Pool,
     pub config: AppConfig,
+    pub razorpay: Option<Arc<RazorpayService>>,
 }
 
 pub fn build_router(state: AppState) -> Router {
@@ -34,7 +40,7 @@ async fn main() -> anyhow::Result<()> {
         .unwrap_or_else(|_| AppConfig {
             server: shared::config::ServerConfig {
                 host: "0.0.0.0".to_string(),
-                port: 3002,
+                port: std::env::var("PORT").unwrap_or_else(|_| "3002".to_string()).parse().unwrap_or(3002),
                 env: "dev".to_string(),
             },
             database: shared::config::DatabaseConfig {
@@ -50,8 +56,10 @@ async fn main() -> anyhow::Result<()> {
             },
             jwt: shared::config::JwtConfig {
                 private_key_pem: std::env::var("JWT_PRIVATE_KEY_PEM")
+                    .map(|s| fix_pem_newlines(&s))
                     .unwrap_or_else(|_| include_str!("../../keys/private.pem").to_string()),
                 public_key_pem: std::env::var("JWT_PUBLIC_KEY_PEM")
+                    .map(|s| fix_pem_newlines(&s))
                     .unwrap_or_else(|_| include_str!("../../keys/public.pem").to_string()),
                 access_ttl_secs: 900,
                 refresh_ttl_secs: 604800,
@@ -77,20 +85,47 @@ async fn main() -> anyhow::Result<()> {
     let redis_pool = deadpool_redis::Config::from_url(&config.redis.url)
         .create_pool(Some(deadpool_redis::Runtime::Tokio1))?;
 
-    let jwt_svc = JwtService::new(
+    // Initialize JWT service with fallback to dummy for missing keys
+    let jwt_svc = match JwtService::new(
         config.jwt.private_key_pem.as_bytes(),
         config.jwt.public_key_pem.as_bytes(),
         config.jwt.issuer.clone(),
         config.jwt.audience.clone(),
         config.jwt.access_ttl_secs,
         config.jwt.refresh_ttl_secs,
-    )?;
+    ) {
+        Ok(svc) => svc,
+        Err(e) => {
+            tracing::warn!("Failed to initialize JWT with RSA keys: {}. Using HMAC fallback.", e);
+            let jwt_secret = std::env::var("JWT_SECRET").unwrap_or_else(|_| "dev-secret-key-change-in-production".to_string());
+            JwtService::new_dummy(
+                &jwt_secret,
+                config.jwt.issuer.clone(),
+                config.jwt.audience.clone(),
+                config.jwt.access_ttl_secs,
+                config.jwt.refresh_ttl_secs,
+            )
+        }
+    };
+
+    // Initialize Razorpay service (optional - can work without it)
+    let razorpay = match RazorpayService::new() {
+        Ok(svc) => {
+            tracing::info!("Razorpay service initialized successfully");
+            Some(Arc::new(svc))
+        }
+        Err(e) => {
+            tracing::warn!("Razorpay not configured: {}. Payment features will be limited.", e);
+            None
+        }
+    };
 
     let state = AppState {
         jwt_svc: Arc::new(jwt_svc),
         db_pool,
         redis_pool,
         config,
+        razorpay,
     };
 
     // CORS configuration

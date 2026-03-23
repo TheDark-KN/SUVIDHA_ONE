@@ -45,3 +45,4 @@ prometheus = "0.13"
 rust_decimal = { version = "1", features = ["serde", "postgres", "tokio-pg"] }
 async-trait = "0.1"
 base64 = "0.22"
+urlencoding = "2.1"

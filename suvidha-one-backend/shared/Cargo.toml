@@ -32,3 +32,4 @@ async-trait.workspace = true
 rust_decimal.workspace = true
 base64.workspace = true
 config.workspace = true
+urlencoding.workspace = true

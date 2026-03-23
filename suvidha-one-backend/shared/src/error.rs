@@ -29,6 +29,9 @@ pub enum AppError {
     #[error("Rate limit exceeded")]
     RateLimitExceeded,
 
+    #[error("Rate limited: {0}")]
+    RateLimited(String),
+
     #[error("External API error: {0}")]
     ExternalApi(String),
 
@@ -212,6 +215,11 @@ impl IntoResponse for AppError {
                 StatusCode::TOO_MANY_REQUESTS,
                 9004,
                 "Rate limit exceeded. Please wait.".into(),
+            ),
+            AppError::RateLimited(msg) => (
+                StatusCode::TOO_MANY_REQUESTS,
+                9004,
+                msg.clone(),
             ),
             AppError::ExternalApi(_) => (
                 StatusCode::BAD_GATEWAY,

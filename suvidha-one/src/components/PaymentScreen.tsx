@@ -4,13 +4,15 @@ import { useEffect, useState } from "react";
 import { useAppStore } from "@/store";
 import { useTranslation } from "./useTranslation";
 import { Loader2, CheckCircle, XCircle, Download, Share2, History, Home, Printer, MessageCircle } from "lucide-react";
+import { useRazorpay } from "@/hooks/useRazorpay";
 
 export function PaymentProcessingScreen() {
   const { bills, selectedBills, setCurrentScreen, setCurrentTransaction, paymentMode, fontScale } = useAppStore();
   const { t } = useTranslation();
   const highContrast = useAppStore((state) => state.highContrast);
-  const [status, setStatus] = useState<"processing" | "success" | "failed">("processing");
+  const [status, setStatus] = useState<"processing" | "success" | "failed" | "initializing">("initializing");
   const [progress, setProgress] = useState(0);
+  const { openPaymentModal } = useRazorpay();
 
   const bgColor = highContrast ? "bg-black" : "bg-gradient-to-br from-slate-50 via-white to-blue-50";
   const textColor = highContrast ? "text-white" : "text-text-primary";
@@ -24,42 +26,71 @@ export function PaymentProcessingScreen() {
   const grandTotal = selectedTotal + convenienceFee;
 
   useEffect(() => {
-    // Simulate payment processing with progress
-    const progressInterval = setInterval(() => {
-      setProgress((prev) => {
-        if (prev >= 100) {
-          clearInterval(progressInterval);
-          return 100;
+    const initiatePayment = async () => {
+      try {
+        setProgress(30);
+        
+        // Create order on backend
+        const response = await fetch("/api/payment/create-order", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            amount: grandTotal,
+            description: `Bill Payment - ${selectedBills.length} bills`,
+            customerName: "SUVIDHA User",
+            customerEmail: "user@suvidha.local",
+            customerPhone: "9876543210",
+            service_type: "bill_payment",
+            kiosk_id: "WEB",
+          }),
+        });
+
+        if (!response.ok) {
+          const errorData = await response.json().catch(() => ({}));
+          throw new Error(errorData.error || "Failed to create payment order");
         }
-        return prev + 10;
-      });
-    }, 300);
 
-    const timer = setTimeout(() => {
-      // 90% success rate simulation
-      const isSuccess = Math.random() > 0.1;
-      if (isSuccess) {
-        setStatus("success");
-        setCurrentTransaction({
-          id: `TXN${Date.now()}`,
-          amount: grandTotal,
-          status: "success"
+        const orderData = await response.json();
+        setProgress(60);
+
+        // Open Razorpay payment modal
+        openPaymentModal({
+          key: orderData.keyId,
+          amount: orderData.amount,
+          currency: orderData.currency,
+          orderId: orderData.orderId,
+          customerName: orderData.customerName,
+          customerEmail: orderData.customerEmail,
+          customerPhone: orderData.customerPhone,
+          description: `Bill Payment - ${selectedBills.length} bills`,
+          onSuccess: (paymentResponse) => {
+            setStatus("success");
+            setCurrentTransaction({
+              id: paymentResponse.paymentId,
+              amount: grandTotal,
+              status: "success"
+            });
+          },
+          onError: (error) => {
+            console.error("Payment error:", error);
+            setStatus("failed");
+            setCurrentTransaction({
+              id: `TXN${Date.now()}`,
+              amount: grandTotal,
+              status: "failed"
+            });
+          },
         });
-      } else {
+      } catch (error) {
+        console.error("Payment initiation error:", error);
         setStatus("failed");
-        setCurrentTransaction({
-          id: `TXN${Date.now()}`,
-          amount: grandTotal,
-          status: "failed"
-        });
       }
-    }, 3500);
-
-    return () => {
-      clearTimeout(timer);
-      clearInterval(progressInterval);
     };
-  }, [grandTotal, setCurrentTransaction]);
+
+    initiatePayment();
+  }, [grandTotal, selectedBills.length, openPaymentModal, setCurrentTransaction]);
 
   if (status === "success") {
     return <PaymentSuccessScreen />;
@@ -118,7 +149,7 @@ export function PaymentProcessingScreen() {
           Payment via:
         </span>
         <span className={`${highContrast ? "bg-yellow-600" : "bg-accent"} text-white px-4 py-2 rounded-lg font-bold`}>
-          {paymentMode?.toUpperCase()}
+          RAZORPAY
         </span>
       </div>
 
@@ -153,17 +184,14 @@ export function PaymentSuccessScreen() {
     .reduce((sum, b) => sum + b.amount, 0);
 
   const handleDownloadReceipt = () => {
-    // Implement receipt download
     alert("Receipt downloaded!");
   };
 
   const handleShareWhatsapp = () => {
-    // Implement WhatsApp share
     alert("Sharing via WhatsApp...");
   };
 
   const handleShareSms = () => {
-    // Implement SMS share
     alert("Sending SMS...");
   };
 
@@ -220,7 +248,7 @@ export function PaymentSuccessScreen() {
           <div className="flex justify-between">
             <span className={subTextColor} style={{ fontSize: 20 * fontScale }}>Payment Mode</span>
             <span className={`${highContrast ? "bg-yellow-600" : "bg-accent"} text-white px-3 py-1 rounded-lg font-bold`}>
-              {useAppStore.getState().paymentMode?.toUpperCase()}
+              RAZORPAY
             </span>
           </div>
           <div className="flex justify-between pt-3 border-t border-gray-200">
@@ -388,7 +416,6 @@ export function PaymentFailedScreen() {
   );
 }
 
-// Import IndianRupee icon
 function IndianRupee({ size, className }: { size: number; className?: string }) {
   return (
     <svg

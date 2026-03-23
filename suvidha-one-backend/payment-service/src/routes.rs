@@ -5,6 +5,29 @@ use axum::{
 
 pub fn payment_routes() -> Router<crate::AppState> {
     Router::new()
+        // Kiosk payment endpoints (Razorpay)
+        .route(
+            "/payment/create",
+            post(crate::handlers::payment::create_kiosk_payment),
+        )
+        .route(
+            "/payment/verify",
+            post(crate::handlers::payment::verify_kiosk_payment),
+        )
+        .route(
+            "/payment/history/:phone",
+            get(crate::handlers::payment::get_payment_history),
+        )
+        .route(
+            "/payment/revenue",
+            get(crate::handlers::payment::get_daily_revenue),
+        )
+        // Razorpay webhook
+        .route(
+            "/webhooks/razorpay",
+            post(crate::handlers::payment::razorpay_webhook),
+        )
+        // Legacy endpoints
         .route(
             "/payments/initiate",
             post(crate::handlers::payment::initiate_payment),

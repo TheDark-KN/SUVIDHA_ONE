@@ -35,6 +35,43 @@ services:
     healthCheckPath: /health
 
   - type: web
+    name: suvidha-one-payment-service
+    env: rust
+    plan: free
+    rootDir: suvidha-one-backend
+    buildCommand: pip install edge-tts && SQLX_OFFLINE=true cargo build --release --bin payment-service
+    startCommand: ./target/release/payment-service
+    envVars:
+      - key: DATABASE_URL
+        sync: false
+      - key: REDIS_URL
+        sync: false
+      - key: JWT_PUBLIC_KEY_PEM
+        sync: false
+      - key: JWT_PRIVATE_KEY_PEM
+        sync: false
+      - key: JWT_SECRET
+        sync: false
+      - key: FRONTEND_URLS
+        value: https://suvidha-one-frontend.vercel.app
+      - key: SQLX_OFFLINE
+        value: "true"
+      - key: RENDER
+        value: "true"
+      - key: PORT
+        sync: false
+      - key: RAZORPAY_KEY_ID
+        sync: false
+      - key: RAZORPAY_KEY_SECRET
+        sync: false
+      - key: RAZORPAY_WEBHOOK_SECRET
+        sync: false
+      - key: RAZORPAY_BASE_URL
+        value: https://api.razorpay.com/v1
+    autoDeploy: true
+    healthCheckPath: /health
+
+  - type: web
     name: suvidha-one-utility-service
     env: rust
     plan: free
