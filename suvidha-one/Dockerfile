@@ -41,6 +41,9 @@ RUN chown nextjs:nodejs .next
 COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
 COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
 
+# Copy environment file if it exists
+COPY --from=builder --chown=nextjs:nodejs /app/.env.production* ./
+
 USER nextjs
 
 EXPOSE 3000
