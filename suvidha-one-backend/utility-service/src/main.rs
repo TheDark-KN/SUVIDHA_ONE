@@ -22,6 +22,7 @@ pub struct AppState {
 pub fn build_router(state: AppState) -> Router {
     Router::new()
         .merge(routes::utility_routes())
+        .merge(routes::auth_routes())
         .nest("/api/tts", routes::tts_routes())
         .nest("/api/voice", routes::voice_routes())
         .merge(routes::health_routes())

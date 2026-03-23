@@ -11,6 +11,14 @@ pub fn utility_routes() -> Router<crate::AppState> {
         .route("/services", get(handlers::service::list_services))
 }
 
+pub fn auth_routes() -> Router<crate::AppState> {
+    Router::new()
+        .route("/auth/otp/send", post(handlers::auth::send_otp))
+        .route("/auth/otp/verify", post(handlers::auth::verify_otp))
+        .route("/otp/send", post(handlers::auth::send_otp))
+        .route("/otp/verify", post(handlers::auth::verify_otp))
+}
+
 pub fn tts_routes() -> Router<crate::AppState> {
     Router::new()
         .route("/synthesize", post(handlers::tts::synthesize))
@@ -24,7 +32,7 @@ pub fn voice_routes() -> Router<crate::AppState> {
         .route("/input", post(handlers::voice::voice_input))
         // ASR only (speech-to-text)
         .route("/asr", post(handlers::voice::asr))
-        // TTS only (text-to-speech)  
+        // TTS only (text-to-speech)
         .route("/tts", post(handlers::voice::tts))
         // List supported languages
         .route("/languages", get(handlers::voice::list_languages))

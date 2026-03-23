@@ -1,3 +1,4 @@
+pub mod auth;
 pub mod bill;
 pub mod service;
 pub mod health;
