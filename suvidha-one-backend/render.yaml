@@ -92,7 +92,7 @@ services:
     plan: free
     region: oregon
     rootDir: suvidha-one-backend
-    buildCommand: pip install edge-tts && SQLX_OFFLINE=true cargo build --release --bin utility-service
+    buildCommand: rm -rf target && pip install edge-tts && SQLX_OFFLINE=true cargo build --release --bin utility-service
     startCommand: ./target/release/utility-service
     envVars:
       - key: DATABASE_URL
