@@ -1351,6 +1351,83 @@ cargo tarpaulin --out Xml
 
 ---
 
+## Live API Testing (Render Deployment)
+
+**Base URL:** `https://suvidha-one.onrender.com`
+
+### Public Endpoints (No Auth Required)
+
+```bash
+# 1. Health Check
+curl -s https://suvidha-one.onrender.com/health
+
+# 2. Health Check (Ready)
+curl -s https://suvidha-one.onrender.com/ready
+
+# 3. TTS - Get Supported Languages
+curl -s https://suvidha-one.onrender.com/api/tts/languages | jq .
+
+# 4. TTS - Synthesize Speech (Hindi)
+curl -s -X POST https://suvidha-one.onrender.com/api/tts/synthesize \
+  -H "Content-Type: application/json" \
+  -d '{"text": "नमस्ते, सेविदहा वन में आपका स्वागत है", "language": "hi-IN"}' | jq .
+
+# 5. TTS - Synthesize Speech (English)
+curl -s -X POST https://suvidha-one.onrender.com/api/tts/synthesize \
+  -H "Content-Type: application/json" \
+  -d '{"text": "Welcome to Suvidha One", "language": "en-IN"}' | jq .
+
+# 6. TTS - Synthesize Speech (Tamil)
+curl -s -X POST https://suvidha-one.onrender.com/api/tts/synthesize \
+  -H "Content-Type: application/json" \
+  -d '{"text": "சுவிட்ஹா ஒன்க்கு வரவேற்கிறோம்", "language": "ta-IN"}' | jq .
+```
+
+### Protected Endpoints (Require JWT Token)
+
+```bash
+# 1. Bills - Fetch Bills (requires valid JWT)
+curl -s -X POST https://suvidha-one.onrender.com/api/bills/fetch \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer <YOUR_JWT_TOKEN>" \
+  -d '{"consumer_numbers": ["1234567890"]}' | jq .
+
+# 2. Bills - Get Bill Details (requires valid JWT)
+curl -s https://suvidha-one.onrender.com/api/bills/<BILL_ID> \
+  -H "Authorization: Bearer <YOUR_JWT_TOKEN>" | jq .
+
+# 3. Services - List Available Services (requires valid JWT)
+curl -s https://suvidha-one.onrender.com/api/services \
+  -H "Authorization: Bearer <YOUR_JWT_TOKEN>" | jq .
+```
+
+### Test Results (March 23, 2026)
+
+| Endpoint | Status | Response |
+|----------|--------|----------|
+| `GET /health` | ✅ Working | `{"status":"healthy","service":"utility-service","version":"1.0.0"}` |
+| `GET /api/tts/languages` | ✅ Working | Returns 10 Indian languages |
+| `POST /api/tts/synthesize` | ⚠️ Error 9007 | External service error (edge-tts not configured) |
+| `POST /api/bills/fetch` | 🔒 Requires Auth | Needs valid JWT token |
+| `GET /api/services` | 🔒 Requires Auth | Needs valid JWT token |
+
+### Known Issues
+
+1. **TTS Synthesis Error 9007**: The `edge-tts` external service is not configured properly on Render. This requires:
+   - Installing `edge-tts` Python package in build
+   - Proper configuration of Microsoft Edge TTS credentials
+
+2. **Protected Endpoints**: Require auth-service to be deployed and configured with valid JWT keys.
+
+### Next Steps to Enable Full Testing
+
+1. Deploy auth-service separately on Render
+2. Set up PostgreSQL and Redis on Render
+3. Configure JWT keys in Render environment variables
+4. Install edge-tts in render.yaml build command
+
+---
+
 ## License
 
 Proprietary - SUVIDHA ONE Project
