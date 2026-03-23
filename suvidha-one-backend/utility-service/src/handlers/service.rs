@@ -1,7 +1,7 @@
 use crate::AppState;
-use axum::{extract::{State, Extension}, response::IntoResponse};
+use axum::{extract::State, response::IntoResponse};
 use serde::Serialize;
-use shared::{jwt::AccessClaims, response::ok};
+use shared::response::ok;
 
 #[derive(Debug, Serialize)]
 pub struct ServiceInfo {
@@ -14,7 +14,6 @@ pub struct ServiceInfo {
 
 pub async fn list_services(
     State(_state): State<AppState>,
-    Extension(_claims): Extension<AccessClaims>,
 ) -> impl IntoResponse {
     let services = vec![
         ServiceInfo { id: "electricity".to_string(), name: "Electricity Bill".to_string(), department: "DISCOM".to_string(), description: "Pay electricity bills".to_string(), icon: "bolt".to_string() },
