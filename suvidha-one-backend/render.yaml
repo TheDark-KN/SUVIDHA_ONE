@@ -15,9 +15,13 @@ services:
         sync: false
       - key: REDIS_URL
         sync: false
-        value: "rediss://default:gQAAAAAAAULeAAIncDI4MjI4ZmE0MWIwNDc0ODljYjgwOTAyMTI0MmM3OWVkMHAyODI2NTQ@healthy-seahorse-82654.upstash.io:6379"
-      - key: REDIS_URL
+        value: "redis://localhost:6379"
+      - key: UPSTASH_REDIS_REST_URL
         sync: false
+        value: "https://healthy-seahorse-82654.upstash.io"
+      - key: UPSTASH_REDIS_REST_TOKEN
+        sync: false
+        value: "gQAAAAAAAULeAAIncDI4MjI4ZmE0MWIwNDc0ODljYjgwOTAyMTI0MmM3OWVkMHAyODI2NTQ"
       - key: JWT_PUBLIC_KEY_PEM
         sync: false
       - key: JWT_PRIVATE_KEY_PEM
@@ -59,9 +63,13 @@ services:
         sync: false
       - key: REDIS_URL
         sync: false
-        value: "rediss://default:gQAAAAAAAULeAAIncDI4MjI4ZmE0MWIwNDc0ODljYjgwOTAyMTI0MmM3OWVkMHAyODI2NTQ@healthy-seahorse-82654.upstash.io:6379"
-      - key: REDIS_URL
+        value: "redis://localhost:6379"
+      - key: UPSTASH_REDIS_REST_URL
         sync: false
+        value: "https://healthy-seahorse-82654.upstash.io"
+      - key: UPSTASH_REDIS_REST_TOKEN
+        sync: false
+        value: "gQAAAAAAAULeAAIncDI4MjI4ZmE0MWIwNDc0ODljYjgwOTAyMTI0MmM3OWVkMHAyODI2NTQ"
       - key: JWT_PUBLIC_KEY_PEM
         sync: false
       - key: JWT_PRIVATE_KEY_PEM
@@ -105,7 +113,13 @@ services:
         sync: false
       - key: REDIS_URL
         sync: false
-        value: "rediss://default:gQAAAAAAAULeAAIncDI4MjI4ZmE0MWIwNDc0ODljYjgwOTAyMTI0MmM3OWVkMHAyODI2NTQ@healthy-seahorse-82654.upstash.io:6379"
+        value: "redis://localhost:6379"
+      - key: UPSTASH_REDIS_REST_URL
+        sync: false
+        value: "https://healthy-seahorse-82654.upstash.io"
+      - key: UPSTASH_REDIS_REST_TOKEN
+        sync: false
+        value: "gQAAAAAAAULeAAIncDI4MjI4ZmE0MWIwNDc0ODljYjgwOTAyMTI0MmM3OWVkMHAyODI2NTQ"
       - key: JWT_PUBLIC_KEY_PEM
         sync: false
       - key: JWT_PRIVATE_KEY_PEM
@@ -124,7 +138,6 @@ services:
         value: info,tower_http=debug
       - key: PORT
         value: "3003"
-      # Bhashini Voice API credentials
       - key: BHASHINI_USER_ID
         sync: false
       - key: BHASHINI_API_KEY

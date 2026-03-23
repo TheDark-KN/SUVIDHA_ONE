@@ -12,6 +12,7 @@ pub struct AppConfig {
     pub digilocker: Option<DigilockerConfig>,
     pub sms: Option<SmsConfig>,
     pub whatsapp: Option<WhatsAppConfig>,
+    pub upstash: Option<UpstashConfig>,
 }
 
 #[derive(Debug, Deserialize, Clone)]
@@ -32,6 +33,12 @@ pub struct DatabaseConfig {
 pub struct RedisConfig {
     pub url: String,
     pub max_connections: u32,
+}
+
+#[derive(Debug, Deserialize, Clone)]
+pub struct UpstashConfig {
+    pub rest_url: String,
+    pub rest_token: String,
 }
 
 #[derive(Debug, Deserialize, Clone)]

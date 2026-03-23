@@ -10,6 +10,7 @@ pub mod tts;
 pub mod sms;
 pub mod razorpay;
 pub mod bhashini;
+pub mod upstash;
 
 pub use error::{AppError, AuthError};
 pub use jwt::{JwtService, AccessClaims, RefreshClaims, Role};
@@ -28,3 +29,4 @@ pub use bhashini::{
     BhashiniService, BhashiniError, BhashiniLanguage, BhashiniConfig,
     AsrResult, TtsResult, TranslationResult, VoiceInputRequest, VoiceResponse
 };
+pub use upstash::{UpstashRedis, UpstashError};

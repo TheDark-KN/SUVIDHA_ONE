@@ -66,23 +66,9 @@ async fn main() -> anyhow::Result<()> {
         .connect(&config.database.url)
         .await?;
 
-    // Configure Redis pool with TLS support for Upstash
-    let redis_url = &config.redis.url;
-    let redis_pool = if redis_url.starts_with("rediss://") {
-        // Upstash with TLS - convert to redis:// for deadpool (TLS handled by connection)
-        let cfg = deadpool_redis::Config {
-            url: Some(redis_url.replace("rediss://", "redis://")),
-            pool: Some(deadpool_redis::PoolConfig {
-                max_size: config.redis.max_connections as usize,
-                ..Default::default()
-            }),
-            ..Default::default()
-        };
-        cfg.create_pool(Some(deadpool_redis::Runtime::Tokio1))?
-    } else {
-        deadpool_redis::Config::from_url(redis_url)
-            .create_pool(Some(deadpool_redis::Runtime::Tokio1))?
-    };
+    // Create Redis pool
+    let redis_pool = deadpool_redis::Config::from_url(&config.redis.url)
+        .create_pool(Some(deadpool_redis::Runtime::Tokio1))?;
 
     // JWT service - optional for utility-service (only needed for protected endpoints)
     let jwt_svc = if config.jwt.public_key_pem.is_empty() || config.jwt.private_key_pem.is_empty() {
