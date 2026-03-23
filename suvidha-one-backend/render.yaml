@@ -8,11 +8,14 @@ services:
     plan: free
     region: oregon
     rootDir: suvidha-one-backend
-    buildCommand: pip install edge-tts && SQLX_OFFLINE=true cargo build --release --bin auth-service
+    buildCommand: rm -rf target && pip install edge-tts && SQLX_OFFLINE=true cargo build --release --bin auth-service
     startCommand: ./target/release/auth-service
     envVars:
       - key: DATABASE_URL
         sync: false
+      - key: REDIS_URL
+        sync: false
+        value: "rediss://default:gQAAAAAAAULeAAIncDI4MjI4ZmE0MWIwNDc0ODljYjgwOTAyMTI0MmM3OWVkMHAyODI2NTQ@healthy-seahorse-82654.upstash.io:6379"
       - key: REDIS_URL
         sync: false
       - key: JWT_PUBLIC_KEY_PEM
@@ -49,11 +52,14 @@ services:
     plan: free
     region: oregon
     rootDir: suvidha-one-backend
-    buildCommand: pip install edge-tts && SQLX_OFFLINE=true cargo build --release --bin payment-service
+    buildCommand: rm -rf target && pip install edge-tts && SQLX_OFFLINE=true cargo build --release --bin payment-service
     startCommand: ./target/release/payment-service
     envVars:
       - key: DATABASE_URL
         sync: false
+      - key: REDIS_URL
+        sync: false
+        value: "rediss://default:gQAAAAAAAULeAAIncDI4MjI4ZmE0MWIwNDc0ODljYjgwOTAyMTI0MmM3OWVkMHAyODI2NTQ@healthy-seahorse-82654.upstash.io:6379"
       - key: REDIS_URL
         sync: false
       - key: JWT_PUBLIC_KEY_PEM
@@ -99,6 +105,7 @@ services:
         sync: false
       - key: REDIS_URL
         sync: false
+        value: "rediss://default:gQAAAAAAAULeAAIncDI4MjI4ZmE0MWIwNDc0ODljYjgwOTAyMTI0MmM3OWVkMHAyODI2NTQ@healthy-seahorse-82654.upstash.io:6379"
       - key: JWT_PUBLIC_KEY_PEM
         sync: false
       - key: JWT_PRIVATE_KEY_PEM
