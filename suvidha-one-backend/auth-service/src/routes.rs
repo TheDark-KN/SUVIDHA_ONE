@@ -7,6 +7,8 @@ pub fn auth_routes() -> Router<crate::AppState> {
     Router::new()
         .route("/auth/otp/send", post(crate::handlers::otp::send_otp))
         .route("/auth/otp/verify", post(crate::handlers::otp::verify_otp))
+        .route("/otp/send", post(crate::handlers::otp::send_otp))  // Shorter alias
+        .route("/otp/verify", post(crate::handlers::otp::verify_otp))  // Shorter alias
         .route("/auth/refresh", post(crate::handlers::auth::refresh_token))
         .route("/auth/logout", post(crate::handlers::auth::logout))
 }

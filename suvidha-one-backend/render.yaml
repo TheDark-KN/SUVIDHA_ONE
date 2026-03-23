@@ -1,6 +1,41 @@
 services:
   - type: web
-    name: suvidha-one-backend
+    name: suvidha-one-auth-service
+    env: rust
+    plan: free
+    rootDir: suvidha-one-backend
+    buildCommand: pip install edge-tts && SQLX_OFFLINE=true cargo build --release --bin auth-service
+    startCommand: ./target/release/auth-service
+    envVars:
+      - key: DATABASE_URL
+        sync: false
+      - key: REDIS_URL
+        sync: false
+      - key: JWT_PUBLIC_KEY_PEM
+        sync: false
+      - key: JWT_PRIVATE_KEY_PEM
+        sync: false
+      - key: JWT_SECRET
+        sync: false
+      - key: OTP_HMAC_SECRET
+        sync: false
+      - key: FAST2SMS_API_KEY
+        sync: false
+      - key: FAST2SMS_SENDER_ID
+        value: "FSTSMS"
+      - key: FRONTEND_URLS
+        value: https://suvidha-one-frontend.vercel.app
+      - key: SQLX_OFFLINE
+        value: "true"
+      - key: RENDER
+        value: "true"
+      - key: PORT
+        sync: false
+    autoDeploy: true
+    healthCheckPath: /health
+
+  - type: web
+    name: suvidha-one-utility-service
     env: rust
     plan: free
     rootDir: suvidha-one-backend
@@ -14,6 +49,8 @@ services:
       - key: JWT_PUBLIC_KEY_PEM
         sync: false
       - key: JWT_PRIVATE_KEY_PEM
+        sync: false
+      - key: JWT_SECRET
         sync: false
       - key: FRONTEND_URLS
         value: https://suvidha-one-frontend.vercel.app

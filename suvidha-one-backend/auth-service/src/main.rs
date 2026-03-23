@@ -5,7 +5,7 @@ pub mod routes;
 
 use std::sync::Arc;
 use axum::Router;
-use shared::{AppConfig, JwtService};
+use shared::{AppConfig, JwtService, SmsService};
 use deadpool_redis::Pool;
 use tower_http::cors::{Any, CorsLayer};
 
@@ -13,6 +13,7 @@ use tower_http::cors::{Any, CorsLayer};
 pub struct AppState {
     pub jwt_svc: Arc<JwtService>,
     pub redis_pool: Pool,
+    pub sms_service: Arc<SmsService>,
     pub config: AppConfig,
 }
 
@@ -74,9 +75,14 @@ async fn main() -> anyhow::Result<()> {
         config.jwt.refresh_ttl_secs,
     )?;
 
+    // Initialize SMS service
+    let sms_service = SmsService::new()
+        .map_err(|e| anyhow::anyhow!("Failed to initialize SMS service: {}", e))?;
+
     let state = AppState {
         jwt_svc: Arc::new(jwt_svc),
         redis_pool,
+        sms_service: Arc::new(sms_service),
         config,
     };
 

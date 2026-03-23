@@ -7,6 +7,7 @@ pub mod middleware;
 pub mod tracing;
 pub mod validation;
 pub mod tts;
+pub mod sms;
 
 pub use error::{AppError, AuthError};
 pub use jwt::{JwtService, AccessClaims, RefreshClaims, Role};
@@ -15,3 +16,4 @@ pub use config::AppConfig;
 pub use response::{ApiResponse, Meta, ok, created, no_content};
 pub use validation::Validated;
 pub use tts::{TtsService, TtsSynthesizeRequest, TtsSynthesizeResponse, TtsLanguage};
+pub use sms::{SmsService, SmsError};
