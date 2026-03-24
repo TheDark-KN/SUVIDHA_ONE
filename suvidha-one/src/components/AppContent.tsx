@@ -1,112 +1,234 @@
 /**
- * AppContent - Main Application Router
+ * AppContent - Main Application Router (New Kiosk Version)
  * 
- * Manages screen navigation and authentication state.
- * Routes between different screens based on user state.
+ * Orchestrates screen navigation based on Wireframe_Specification.md
+ * Supports flow: Welcome → Language → Auth → Dashboard → Services
  */
 
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
+import { AnimatePresence, motion } from 'framer-motion';
 import { ThemeProvider } from '@/contexts/ThemeContext';
-import { AuthScreen } from '@/screens/AuthScreen';
-import { DashboardScreen } from '@/screens/DashboardScreen';
-import { BillsScreen } from '@/screens/BillsScreen';
-import { GrievanceScreen } from '@/screens/GrievanceScreen';
+import { useAppStore } from '@/store';
+
+// New kiosk screens
+import { 
+  WelcomeScreen, 
+  LanguageScreen, 
+  AuthScreen,
+  DashboardScreen,
+  BillsScreen,
+  PaymentScreen,
+  GrievanceScreen,
+  SettingsScreen,
+} from '@/components/screens';
+
+// Legacy screens for backward compatibility
+import { DashboardScreen as LegacyDashboard } from '@/screens/DashboardScreen';
 import { DocumentsScreen } from '@/screens/DocumentsScreen';
 
 export type Screen =
+  | 'welcome'
+  | 'language'
   | 'auth'
   | 'dashboard'
   | 'bills'
-  | 'grievances'
+  | 'payment'
+  | 'grievance'
   | 'documents'
-  | 'payments'
   | 'history'
   | 'settings';
 
+// Use URL param to toggle between new and legacy UI
+const USE_NEW_UI = true;
+
 export function AppContent() {
-  const [currentScreen, setCurrentScreen] = useState<Screen>('dashboard');
+  const { 
+    currentScreen, 
+    setCurrentScreen,
+    setUser,
+    setBills,
+    clearSelectedBills,
+  } = useAppStore();
 
-  // Temporary test mode: bypass OTP/auth and allow direct app access
+  // Initialize with some demo data
   useEffect(() => {
-    const token = localStorage.getItem('access_token');
-    if (!token) {
-      localStorage.setItem('access_token', `test_token_${Date.now()}`);
-      localStorage.setItem('refresh_token', `test_refresh_${Date.now()}`);
-    }
-    setCurrentScreen('dashboard');
-  }, []);
+    // Set demo bills for testing
+    setBills([
+      {
+        id: 'bill-1',
+        provider: 'MSEB - Maharashtra Electricity',
+        consumerNumber: 'CA-1234567890',
+        amount: 2450,
+        dueDate: '2026-03-20',
+        period: 'Feb 2026',
+        status: 'pending',
+        utilityType: 'electricity',
+      },
+      {
+        id: 'bill-2',
+        provider: 'Mumbai Municipal Water',
+        consumerNumber: 'WC-9876543210',
+        amount: 850,
+        dueDate: '2026-03-25',
+        period: 'Feb 2026',
+        status: 'pending',
+        utilityType: 'water',
+      },
+      {
+        id: 'bill-3',
+        provider: 'Mahanagar Gas',
+        consumerNumber: 'MG-5551234567',
+        amount: 1200,
+        dueDate: '2026-03-15',
+        period: 'Feb 2026',
+        status: 'pending',
+        utilityType: 'gas',
+      },
+    ]);
+  }, [setBills]);
 
-  const handleAuthSuccess = () => {
+  // Screen navigation handlers
+  const handleWelcomeTouch = () => setCurrentScreen('language');
+  
+  const handleLanguageSelect = () => {
+    // Skip auth for now (OTP bypass mode)
+    setUser({ id: "guest-" + Date.now(), name: 'Guest User' });
+    setCurrentScreen('dashboard');
+  };
+  
+  const handleAuthComplete = () => {
     setCurrentScreen('dashboard');
   };
 
-  const handleNavigate = (screen: Screen) => {
-    setCurrentScreen(screen);
-  };
-
-  // Render current screen
-  const renderScreen = () => {
-    switch (currentScreen) {
-      case 'auth':
-        return (
-          <AuthScreen
-            onSuccess={handleAuthSuccess}
-          />
-        );
-
-      case 'dashboard':
-        return (
-          <DashboardScreen
-            onNavigate={handleNavigate}
-          />
-        );
-
+  const handleServiceSelect = (service: string) => {
+    switch (service) {
       case 'bills':
-        return (
-          <BillsScreen
-            onNavigate={handleNavigate}
-            onPaymentInitiate={(billIds) => {
-              console.log('Initiating payment for bills:', billIds);
-              // Navigate to payment screen or show payment modal
-            }}
-          />
-        );
-
-      case 'grievances':
-        return (
-          <GrievanceScreen
-            onNavigate={handleNavigate}
-          />
-        );
-
-      case 'documents':
-        return (
-          <DocumentsScreen
-            onNavigate={handleNavigate}
-          />
-        );
-
-      case 'payments':
-      case 'history':
-      case 'settings':
-        // Placeholder for future screens
-        return null;
-
+      case 'electricity':
+      case 'water':
+      case 'gas':
+        setCurrentScreen('bills');
+        break;
+      case 'grievance':
+        setCurrentScreen('grievance');
+        break;
+      case 'certificates':
+        setCurrentScreen('documents');
+        break;
       default:
-        return (
-          <DashboardScreen
-            onNavigate={handleNavigate}
-          />
-        );
+        console.log('Service selected:', service);
     }
+  };
+
+  const handleNavChange = (nav: 'home' | 'history' | 'help' | 'settings') => {
+    switch (nav) {
+      case 'home':
+        setCurrentScreen('dashboard');
+        break;
+      case 'settings':
+        setCurrentScreen('settings');
+        break;
+      default:
+        console.log('Nav:', nav);
+    }
+  };
+
+  const handleBackToDashboard = () => {
+    clearSelectedBills();
+    setCurrentScreen('dashboard');
+  };
+
+  // Render current screen with animation
+  const renderScreen = () => {
+    // New kiosk UI
+    if (USE_NEW_UI) {
+      switch (currentScreen) {
+        case 'welcome':
+          return <WelcomeScreen onTouch={handleWelcomeTouch} />;
+        
+        case 'language':
+          return <LanguageScreen onSelect={handleLanguageSelect} />;
+        
+        case 'auth':
+          return <AuthScreen onSuccess={handleAuthComplete} />;
+        
+        case 'dashboard':
+          return (
+            <DashboardScreen 
+              onServiceSelect={handleServiceSelect}
+              onNavChange={handleNavChange}
+            />
+          );
+        
+        case 'bills':
+          return (
+            <BillsScreen 
+              onBack={handleBackToDashboard}
+              onProceed={() => setCurrentScreen('payment')}
+            />
+          );
+        
+        case 'payment':
+          return (
+            <PaymentScreen 
+              onBack={() => setCurrentScreen('bills')}
+              onComplete={handleBackToDashboard}
+            />
+          );
+        
+        case 'grievance':
+          return (
+            <GrievanceScreen 
+              onBack={handleBackToDashboard}
+              onComplete={handleBackToDashboard}
+            />
+          );
+        
+        case 'settings':
+          return (
+            <SettingsScreen 
+              onBack={handleBackToDashboard}
+              onLanguageChange={() => setCurrentScreen('language')}
+              onLogout={() => setCurrentScreen('welcome')}
+            />
+          );
+        
+        case 'documents':
+          return (
+            <DocumentsScreen 
+              onNavigate={(screen) => setCurrentScreen(screen as Screen)}
+            />
+          );
+        
+        default:
+          return <WelcomeScreen onTouch={handleWelcomeTouch} />;
+      }
+    }
+
+    // Legacy UI fallback
+    return (
+      <LegacyDashboard 
+        onNavigate={(screen) => setCurrentScreen(screen as Screen)}
+      />
+    );
   };
 
   return (
     <ThemeProvider>
-      <div className="min-h-screen bg-gray-50 dark:bg-gray-950 transition-colors duration-300">
-        {renderScreen()}
+      <div className="min-h-screen bg-gray-50 dark:bg-gray-950 transition-colors duration-300 overflow-hidden">
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={currentScreen}
+            initial={{ opacity: 0, x: 50 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: -50 }}
+            transition={{ duration: 0.2 }}
+            className="min-h-screen"
+          >
+            {renderScreen()}
+          </motion.div>
+        </AnimatePresence>
       </div>
     </ThemeProvider>
   );

@@ -23,9 +23,9 @@ import type { Screen } from '@/components/AppContent';
 const navItems: NavItem[] = [
   { id: 'dashboard', label: 'Dashboard', labelHindi: 'डैशबोर्ड', icon: 'dashboard', path: '/' },
   { id: 'bills', label: 'Bills', labelHindi: 'बिल', icon: 'bills', path: '/bills' },
-  { id: 'grievances', label: 'Grievances', labelHindi: 'शिकायतें', icon: 'alertCircle', path: '/grievances' },
+  { id: 'grievance', label: 'Grievances', labelHindi: 'शिकायतें', icon: 'alertCircle', path: '/grievances' },
   { id: 'documents', label: 'Documents', labelHindi: 'दस्तावेज़', icon: 'fileText', path: '/documents' },
-  { id: 'payments', label: 'Payments', labelHindi: 'भुगतान', icon: 'payment', path: '/payments' },
+  { id: 'payment', label: 'Payments', labelHindi: 'भुगतान', icon: 'payment', path: '/payments' },
   { id: 'history', label: 'History', labelHindi: 'इतिहास', icon: 'clock', path: '/history' },
   { id: 'settings', label: 'Settings', labelHindi: 'सेटिंग्स', icon: 'settings', path: '/settings' },
 ];
@@ -37,7 +37,7 @@ interface GrievanceScreenProps {
 export const GrievanceScreen: React.FC<GrievanceScreenProps> = ({
   onNavigate = () => {},
 }) => {
-  const [activeNav, setActiveNav] = useState<Screen>('grievances');
+  const [activeNav, setActiveNav] = useState<Screen>('grievance');
   const [showCreateForm, setShowCreateForm] = useState(false);
   const [selectedGrievance, setSelectedGrievance] = useState<Grievance | null>(null);
   const [formData, setFormData] = useState<CreateGrievanceRequest>({

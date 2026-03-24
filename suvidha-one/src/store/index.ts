@@ -15,6 +15,7 @@ interface AppState {
   isAuthenticated: boolean;
   authMethod: AuthMethod | null;
   user: User | null;
+  setUser: (user: User | null) => void;
   login: (method: AuthMethod, user: User) => void;
   logout: () => void;
 
@@ -32,6 +33,7 @@ interface AppState {
   selectedBills: string[];
   toggleBillSelection: (billId: string) => void;
   selectAllBills: () => void;
+  clearSelectedBills: () => void;
 
   // Grievances
   grievances: Grievance[];
@@ -85,6 +87,13 @@ export const useAppStore = create<AppState>()(
       isAuthenticated: false,
       authMethod: null,
       user: null,
+      setUser: (user) => {
+        try {
+          set({ user, isAuthenticated: !!user });
+        } catch (err) {
+          console.error("setUser error:", err);
+        }
+      },
       login: (method, user) => {
         try {
           set({
@@ -175,6 +184,13 @@ export const useAppStore = create<AppState>()(
           return state;
         }
       }),
+      clearSelectedBills: () => {
+        try {
+          set({ selectedBills: [] });
+        } catch (err) {
+          console.error("clearSelectedBills error:", err);
+        }
+      },
 
       // Grievances
       grievances: [],

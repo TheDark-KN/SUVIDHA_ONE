@@ -20,9 +20,9 @@ import type { Screen } from '@/components/AppContent';
 const navItems: NavItem[] = [
   { id: 'dashboard', label: 'Dashboard', labelHindi: 'डैशबोर्ड', icon: 'dashboard', path: '/' },
   { id: 'bills', label: 'Bills', labelHindi: 'बिल', icon: 'bills', path: '/bills' },
-  { id: 'grievances', label: 'Grievances', labelHindi: 'शिकायतें', icon: 'alertCircle', path: '/grievances' },
+  { id: 'grievance', label: 'Grievances', labelHindi: 'शिकायतें', icon: 'alertCircle', path: '/grievances' },
   { id: 'documents', label: 'Documents', labelHindi: 'दस्तावेज़', icon: 'fileText', path: '/documents' },
-  { id: 'payments', label: 'Payments', labelHindi: 'भुगतान', icon: 'payment', path: '/payments' },
+  { id: 'payment', label: 'Payments', labelHindi: 'भुगतान', icon: 'payment', path: '/payments' },
   { id: 'history', label: 'History', labelHindi: 'इतिहास', icon: 'clock', path: '/history' },
   { id: 'settings', label: 'Settings', labelHindi: 'सेटिंग्स', icon: 'settings', path: '/settings' },
 ];
@@ -115,7 +115,7 @@ export const DashboardScreen: React.FC<DashboardScreenProps> = ({
     if (['electricity', 'water', 'gas', 'property_tax'].includes(serviceId)) {
       onNavigate('bills');
     } else if (['grievance'].includes(serviceId)) {
-      onNavigate('grievances');
+      onNavigate('grievance');
     } else if (serviceId.includes('certificate') || serviceId.includes('card') || serviceId.includes('license')) {
       onNavigate('documents');
     } else {
