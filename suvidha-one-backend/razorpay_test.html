@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Razorpay Test Payment - ₹100</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        .container {
+            background: white;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+            text-align: center;
+            max-width: 400px;
+        }
+        h1 { color: #333; margin-bottom: 10px; }
+        .amount { font-size: 48px; color: #528ff0; margin: 20px 0; }
+        .order-id { color: #666; font-size: 12px; margin-bottom: 20px; }
+        button {
+            background: #528ff0;
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 18px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        button:hover { background: #3d7dd8; }
+        .test-cards {
+            margin-top: 30px;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            text-align: left;
+        }
+        .test-cards h3 { margin-top: 0; color: #333; }
+        .test-cards p { margin: 5px 0; color: #666; font-size: 14px; }
+        .test-cards code { background: #e9ecef; padding: 2px 6px; border-radius: 4px; }
+        .result {
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 8px;
+            display: none;
+        }
+        .result.success { background: #d4edda; color: #155724; }
+        .result.error { background: #f8d7da; color: #721c24; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🧪 Test Payment</h1>
+        <div class="amount">₹100</div>
+        <div class="order-id">Order ID: order_SUuxL8DoVASKvI</div>
+        
+        <button onclick="openPayment()">Pay Now</button>
+        
+        <div id="result" class="result"></div>
+        
+        <div class="test-cards">
+            <h3>📋 Test Card Details</h3>
+            <p><strong>Card:</strong> <code>4111 1111 1111 1111</code></p>
+            <p><strong>Expiry:</strong> <code>12/26</code> (any future date)</p>
+            <p><strong>CVV:</strong> <code>123</code> (any 3 digits)</p>
+            <p><strong>OTP:</strong> <code>1234</code></p>
+        </div>
+    </div>
+
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+    <script>
+        function openPayment() {
+            var options = {
+                key: "rzp_test_SUudTNZw53zapl",
+                amount: "10000",
+                currency: "INR",
+                order_id: "order_SUuxL8DoVASKvI",
+                name: "Suvidha One",
+                description: "Test Payment - ₹100",
+                image: "https://razorpay.com/assets/razorpay-glyph.svg",
+                handler: function(response) {
+                    var result = document.getElementById('result');
+                    result.className = 'result success';
+                    result.style.display = 'block';
+                    result.innerHTML = '<strong>✅ Payment Successful!</strong><br>' +
+                        'Payment ID: ' + response.razorpay_payment_id + '<br>' +
+                        'Order ID: ' + response.razorpay_order_id;
+                    console.log('Payment Response:', response);
+                },
+                prefill: {
+                    name: "Test User",
+                    email: "test@example.com",
+                    contact: "9999999999"
+                },
+                theme: {
+                    color: "#528ff0"
+                },
+                modal: {
+                    ondismiss: function() {
+                        console.log('Payment modal closed');
+                    }
+                }
+            };
+            
+            var rzp = new Razorpay(options);
+            rzp.on('payment.failed', function(response) {
+                var result = document.getElementById('result');
+                result.className = 'result error';
+                result.style.display = 'block';
+                result.innerHTML = '<strong>❌ Payment Failed</strong><br>' +
+                    'Error: ' + response.error.description;
+                console.log('Payment Failed:', response.error);
+            });
+            rzp.open();
+        }
+    </script>
+</body>
+</html>

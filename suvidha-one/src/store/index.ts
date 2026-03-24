@@ -34,6 +34,11 @@ interface AppState {
   toggleBillSelection: (billId: string) => void;
   selectAllBills: () => void;
   clearSelectedBills: () => void;
+  
+  // Service filter for bills
+  selectedService: string | null;
+  setSelectedService: (service: string | null) => void;
+  getFilteredBills: () => Bill[];
 
   // Grievances
   grievances: Grievance[];
@@ -116,6 +121,7 @@ export const useAppStore = create<AppState>()(
             user: null,
             currentScreen: "welcome",
             selectedBills: [],
+            selectedService: null,
             error: null
           });
         } catch (err) {
@@ -178,7 +184,10 @@ export const useAppStore = create<AppState>()(
       }),
       selectAllBills: () => set((state) => {
         try {
-          return { selectedBills: state.bills.map(b => b.id) };
+          const filteredBills = state.selectedService
+            ? state.bills.filter(b => b.utilityType === state.selectedService && b.status === "pending")
+            : state.bills.filter(b => b.status === "pending");
+          return { selectedBills: filteredBills.map(b => b.id) };
         } catch (err) {
           console.error("selectAllBills error:", err);
           return state;
@@ -186,10 +195,27 @@ export const useAppStore = create<AppState>()(
       }),
       clearSelectedBills: () => {
         try {
-          set({ selectedBills: [] });
+          set({ selectedBills: [], selectedService: null });
         } catch (err) {
           console.error("clearSelectedBills error:", err);
         }
+      },
+
+      // Service filter
+      selectedService: null,
+      setSelectedService: (service) => {
+        try {
+          set({ selectedService: service, selectedBills: [] });
+        } catch (err) {
+          console.error("setSelectedService error:", err);
+        }
+      },
+      getFilteredBills: () => {
+        const state = get();
+        if (!state.selectedService || state.selectedService === "bills") {
+          return state.bills.filter(b => b.status === "pending");
+        }
+        return state.bills.filter(b => b.utilityType === state.selectedService && b.status === "pending");
       },
 
       // Grievances

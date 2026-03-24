@@ -50,6 +50,7 @@ export function AppContent() {
     setUser,
     setBills,
     clearSelectedBills,
+    setSelectedService,
   } = useAppStore();
 
   // Initialize with some demo data
@@ -105,9 +106,13 @@ export function AppContent() {
   const handleServiceSelect = (service: string) => {
     switch (service) {
       case 'bills':
+        setSelectedService(null); // Show all bills
+        setCurrentScreen('bills');
+        break;
       case 'electricity':
       case 'water':
       case 'gas':
+        setSelectedService(service); // Filter by service type
         setCurrentScreen('bills');
         break;
       case 'grievance':

@@ -1,68 +1,66 @@
 import { NextRequest, NextResponse } from "next/server";
 
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:3003";
+// Razorpay Test Credentials
+const RAZORPAY_KEY_ID = process.env.RAZORPAY_KEY_ID || "rzp_test_SUudTNZw53zapl";
+const RAZORPAY_KEY_SECRET = process.env.RAZORPAY_KEY_SECRET || "IVUVTIg3K0J2tps1uLXf3A3g";
 
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
-    const { amount, customerName, customerEmail, customerPhone, service_type, kiosk_id } =
-      body;
+    const { amount, bills, customerName, customerEmail, customerPhone } = body;
 
-    if (!amount || !service_type) {
+    if (!amount || amount < 1) {
       return NextResponse.json(
-        { error: "Missing required fields: amount and service_type" },
+        { error: "Invalid amount" },
         { status: 400 }
       );
     }
 
-    // Validate amount (₹10 - ₹5000)
+    // Convert to paise
     const amountPaise = Math.round(amount * 100);
-    if (amountPaise < 1000 || amountPaise > 500000) {
-      return NextResponse.json(
-        { error: "Amount must be between ₹10 and ₹5000" },
-        { status: 400 }
-      );
-    }
 
-    // Call backend payment service to create Razorpay order
-    const backendResponse = await fetch(`${API_BASE_URL}/payment/create`, {
+    // Create Razorpay order directly
+    const auth = Buffer.from(`${RAZORPAY_KEY_ID}:${RAZORPAY_KEY_SECRET}`).toString("base64");
+    
+    const razorpayResponse = await fetch("https://api.razorpay.com/v1/orders", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
+        "Authorization": `Basic ${auth}`,
       },
       body: JSON.stringify({
-        phone: customerPhone || "9999999999", // Fallback for kiosk mode
         amount: amountPaise,
-        service_type: service_type,
-        kiosk_id: kiosk_id || "WEB",
+        currency: "INR",
+        receipt: `suvidha_${Date.now()}`,
+        notes: {
+          bills: bills || "",
+          source: "suvidha_one_frontend",
+          customerName: customerName || "Citizen",
+        },
       }),
     });
 
-    if (!backendResponse.ok) {
-      const errorData = await backendResponse.json().catch(() => ({}));
-      console.error("Backend payment creation error:", errorData);
+    if (!razorpayResponse.ok) {
+      const errorData = await razorpayResponse.json().catch(() => ({}));
+      console.error("Razorpay order creation error:", errorData);
       return NextResponse.json(
-        { error: errorData.message || "Failed to create payment order" },
-        { status: backendResponse.status }
+        { error: errorData.error?.description || "Failed to create payment order" },
+        { status: razorpayResponse.status }
       );
     }
 
-    const order = await backendResponse.json();
+    const order = await razorpayResponse.json();
 
-    return NextResponse.json(
-      {
-        orderId: order.order_id,
-        amount: order.amount,
-        currency: order.currency,
-        keyId: order.razorpay_key_id,
-        customerName: customerName || "Customer",
-        customerEmail: customerEmail || "",
-        customerPhone: customerPhone || "",
-        upiLink: order.upi_link,
-        receipt: order.receipt,
-      },
-      { status: 200 }
-    );
+    return NextResponse.json({
+      orderId: order.id,
+      amount: order.amount,
+      currency: order.currency,
+      keyId: RAZORPAY_KEY_ID,
+      customerName: customerName || "Citizen",
+      customerEmail: customerEmail || "",
+      customerPhone: customerPhone || "",
+      receipt: order.receipt,
+    });
   } catch (error) {
     console.error("Payment creation error:", error);
     return NextResponse.json(
