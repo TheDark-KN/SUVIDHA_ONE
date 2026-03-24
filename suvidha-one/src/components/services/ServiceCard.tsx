@@ -28,7 +28,6 @@ export interface ServiceCardProps {
 }
 
 export const ServiceCard: React.FC<ServiceCardProps> = ({
-  id,
   name,
   nameHindi,
   description,

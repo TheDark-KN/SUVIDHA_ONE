@@ -7,7 +7,7 @@
 
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { DashboardLayout, NavItem } from '@/components/layout';
 import { ServiceCard, ServiceCardSkeleton } from '@/components/services';
@@ -77,12 +77,11 @@ interface DashboardScreenProps {
 }
 
 export const DashboardScreen: React.FC<DashboardScreenProps> = ({
-  initialMobile = '',
   onNavigate = () => {},
 }) => {
   const [activeNav, setActiveNav] = useState<Screen>('dashboard');
   const [searchQuery, setSearchQuery] = useState('');
-  const { theme } = useTheme();
+  useTheme();
 
   // Fetch services from API
   const {

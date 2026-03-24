@@ -7,6 +7,7 @@
 
 import React from 'react';
 import { IconType } from 'react-icons';
+// Feather Icons (Fi) - Only importing icons used in the registry
 import { 
   FiHome, FiUser, FiSettings, FiBarChart2, FiTrash2,
   FiBell, FiLogOut, FiMenu, FiX, FiChevronRight, FiChevronLeft,
@@ -16,49 +17,25 @@ import {
   FiCreditCard, FiDollarSign, FiFileText, FiFolder, FiArchive,
   FiActivity, FiTrendingUp, FiTrendingDown, FiRefreshCw, FiSun,
   FiMoon, FiMonitor, FiSmartphone, FiTablet, FiWifi, FiBattery,
-  FiLock, FiUnlock, FiEye, FiEyeOff, FiCamera, FiImage, FiVideo,
+  FiLock, FiUnlock, FiCamera, FiImage, FiVideo,
   FiMic, FiVolume2, FiHeadphones, FiMusic, FiPlay, FiPause,
-  FiSkipForward, FiSkipBack, FiHeart, FiStar, FiThumbsUp,
-  FiThumbsDown, FiShare2, FiLink, FiExternalLink, FiCopy,
-  FiPrinter
+  FiHeart, FiStar, FiThumbsUp, FiThumbsDown, FiShare2, FiLink, 
+  FiExternalLink, FiCopy, FiPrinter
 } from 'react-icons/fi';
+// Material Design Icons (Md) - Only importing icons used in the registry
 import { 
   MdDashboard, MdPeople, MdPayments, MdReceipt, MdNotificationImportant,
   MdSecurity, MdVerified, MdWarning, MdError, MdCheckCircle,
-  MdHelp, MdInfo, MdSearch, MdSettings as MdSettings, MdHome as MdHome,
-  MdPerson, MdLogout, MdMenu as MdMenu, MdClose, MdArrowForward,
-  MdArrowBack, MdRefresh, MdAdd, MdRemove, MdEdit, MdDelete,
-  MdFilePresent, MdFolder, MdAttachFile, MdCloudUpload, MdCloudDownload,
-  MdVisibility, MdVisibilityOff, MdLock, MdLockOpen, MdFingerprint,
-  MdPhone, MdEmail, MdLocationOn, MdCalendarToday, MdAccessTime,
-  MdPayment, MdCreditCard, MdAccountBalance, MdMonetizationOn,
-  MdTrendingUp, MdTrendingDown, MdAnalytics, MdAssessment,
-  MdBrightnessHigh, MdBrightnessLow, MdDesktopWindows, MdPhoneAndroid,
-  MdWifi, MdBatteryFull, MdCameraAlt, MdImage, MdVideocam,
-  MdMic, MdVolumeUp, MdHeadset, MdAudiotrack, MdPlayArrow,
-  MdPause, MdStop, MdSkipNext, MdSkipPrevious, MdFavorite,
-  MdStar, MdThumbUp, MdThumbDown, MdShare, MdLink,
-  MdOpenInNew, MdContentCopy, MdPrint, MdScanner, MdQrCodeScanner
+  MdPerson, MdArrowForward, MdArrowBack, MdDelete,
+  MdFilePresent, MdAttachFile, MdCloudUpload, MdCloudDownload,
+  MdPayment, MdAccountBalance, MdMonetizationOn,
+  MdAnalytics, MdAssessment, MdBrightnessHigh, MdBrightnessLow, 
+  MdDesktopWindows, MdScanner
 } from 'react-icons/md';
+// Heroicons Outline (Hi) - Only importing icons used in the registry
 import {
-  HiOutlineHome, HiOutlineUser, HiOutlineCog, HiOutlineChartBar,
-  HiOutlineTrash, HiOutlineBell, HiOutlineLogout, HiOutlineMenu,
-  HiOutlineX, HiOutlineChevronRight, HiOutlineChevronLeft, HiOutlineCheck,
-  HiOutlineExclamation, HiOutlineInformationCircle, HiOutlineQuestionMarkCircle,
-  HiOutlineSearch, HiOutlineFilter, HiOutlineDownload, HiOutlineUpload,
-  HiOutlinePencil, HiOutlinePlus, HiOutlineMinus, HiOutlineCalendar,
-  HiOutlineClock, HiOutlineLocationMarker, HiOutlinePhone, HiOutlineMail,
-  HiOutlineShieldCheck, HiOutlineCreditCard, HiOutlineCurrencyDollar,
-  HiOutlineDocument, HiOutlineFolder, HiOutlineArchive, HiOutlineLightningBolt,
-  HiOutlineTrendingUp, HiOutlineTrendingDown, HiOutlineRefresh,
-  HiOutlineSun, HiOutlineMoon, HiOutlineDesktopComputer, HiOutlineDeviceMobile,
-  HiOutlineWifi, HiOutlineLockClosed, HiOutlineLockOpen,
-  HiOutlineEye, HiOutlineEyeOff, HiOutlineCamera, HiOutlinePhotograph,
-  HiOutlineVideoCamera, HiOutlineMicrophone, HiOutlineSpeakerphone,
-  HiOutlinePlay, HiOutlinePause,
-  HiOutlineStop, HiOutlineSwitchHorizontal, HiOutlineHeart, HiOutlineStar,
-  HiOutlineThumbUp, HiOutlineThumbDown, HiOutlineShare, HiOutlineLink,
-  HiOutlineExternalLink, HiOutlineDuplicate, HiOutlineQrcode
+  HiOutlineCog, HiOutlinePencil, HiOutlineCurrencyDollar,
+  HiOutlineDocument, HiOutlineDuplicate
 } from 'react-icons/hi';
 
 // Icon registry - map icon names to actual components
@@ -239,7 +216,6 @@ export const Icon: React.FC<IconProps> = ({
   onClick,
   disabled = false,
   loading = false,
-  variant = 'default',
 }) => {
   const IconComponent = iconRegistry[name];
 

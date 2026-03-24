@@ -7,10 +7,10 @@
  * Bhashini ASR for transcription, and plays back TTS response.
  */
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import { useVoice, SUPPORTED_LANGUAGES } from "@/hooks/useVoice";
 import { useAppStore } from "@/store";
-import { Mic, MicOff, Volume2, Loader2 } from "lucide-react";
+import { Mic, Volume2, Loader2 } from "lucide-react";
 
 interface VoiceMicButtonProps {
   /** Language code (e.g., "hi", "ta", "en") */
@@ -42,14 +42,12 @@ export function VoiceMicButton({
     listening,
     processing,
     transcript,
-    intent,
     replyText,
     audioUrl,
     error,
     startListening,
     stopListening,
     playResponse,
-    reset,
   } = useVoice({
     language: langCode,
     autoPlay: true,

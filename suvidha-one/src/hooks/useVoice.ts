@@ -113,7 +113,7 @@ export function useVoice(options: UseVoiceOptions = {}): VoiceState & VoiceActio
   // ─────────────────────────────────────────────────────────────────────────
   // Audio conversion: WebM → WAV (Bhashini requires WAV 16kHz)
   // ─────────────────────────────────────────────────────────────────────────
-  const convertToWav = async (webmBlob: Blob): Promise<Blob> => {
+  const convertToWav = useCallback(async (webmBlob: Blob): Promise<Blob> => {
     const arrayBuffer = await webmBlob.arrayBuffer();
     const audioCtx = new AudioContext({ sampleRate: 16000 });
     const decoded = await audioCtx.decodeAudioData(arrayBuffer);
@@ -131,7 +131,7 @@ export function useVoice(options: UseVoiceOptions = {}): VoiceState & VoiceActio
     // Create WAV file
     const wavBuffer = encodeWav(samples, 16000);
     return new Blob([wavBuffer], { type: 'audio/wav' });
-  };
+  }, []);
 
   // Encode samples to WAV format
   const encodeWav = (samples: Int16Array, sampleRate: number): ArrayBuffer => {
@@ -277,7 +277,7 @@ export function useVoice(options: UseVoiceOptions = {}): VoiceState & VoiceActio
       setError(errorMessage);
       onError?.(err instanceof Error ? err : new Error(errorMessage));
     }
-  }, [language, apiUrl, autoPlay, onResult, onError]);
+  }, [language, apiUrl, autoPlay, onResult, onError, convertToWav]);
 
   // ─────────────────────────────────────────────────────────────────────────
   // Stop recording

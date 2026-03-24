@@ -17,7 +17,6 @@ export interface KioskModeOptions {
 export function useKioskMode(options: KioskModeOptions = {}) {
   const {
     autoFullscreen = true,
-    disableScreensaver = true,
     wakeLock = true,
   } = options;
 

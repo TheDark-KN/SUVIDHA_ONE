@@ -11,7 +11,7 @@
 
 'use client';
 
-import React, { useState } from 'react';
+import React from 'react';
 import { Icon, IconButton } from '@/components/Icon';
 import { useTheme } from '@/contexts/ThemeContext';
 import type { Screen } from '@/components/AppContent';

@@ -15,7 +15,7 @@
 import React, { useState } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { DashboardLayout, NavItem } from '@/components/layout';
-import { Icon, IconButton } from '@/components/Icon';
+import { Icon } from '@/components/Icon';
 import { api, Grievance, CreateGrievanceRequest } from '@/lib/api';
 import { motion, AnimatePresence } from 'framer-motion';
 import type { Screen } from '@/components/AppContent';

@@ -13,10 +13,10 @@
 'use client';
 
 import React, { useState } from 'react';
-import { useQuery, useMutation } from '@tanstack/react-query';
+import { useMutation } from '@tanstack/react-query';
 import { DashboardLayout, NavItem } from '@/components/layout';
-import { Icon, IconButton } from '@/components/Icon';
-import { api, Bill, FetchBillsRequest } from '@/lib/api';
+import { Icon } from '@/components/Icon';
+import { api, FetchBillsRequest } from '@/lib/api';
 import { motion } from 'framer-motion';
 import type { Screen } from '@/components/AppContent';
 

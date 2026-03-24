@@ -43,7 +43,7 @@ export function OtpScreen({
     if (otp.length === 6 && !loading) {
       try {
         await onOtpVerify(otp);
-      } catch (err) {
+      } catch {
         setOtpError(true);
         setTimeout(() => setOtpError(false), 2000);
       }

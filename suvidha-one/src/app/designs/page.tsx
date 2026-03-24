@@ -1,6 +1,5 @@
 "use client";
 
-import { useEffect, useState } from "react";
 import { useAppStore } from "@/store";
 import { LayoutGrid, FileCode, CheckCircle, ExternalLink } from "lucide-react";
 

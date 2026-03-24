@@ -5,7 +5,7 @@ const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:3003";
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
-    const { amount, description, customerName, customerEmail, customerPhone, service_type, kiosk_id } =
+    const { amount, customerName, customerEmail, customerPhone, service_type, kiosk_id } =
       body;
 
     if (!amount || !service_type) {

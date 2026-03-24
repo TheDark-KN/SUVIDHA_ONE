@@ -30,7 +30,6 @@ export function PhoneScreen({
   }, [phone, onPhoneSubmit]);
 
   const bgColor = highContrast ? "bg-black" : "bg-gradient-to-br from-blue-50 via-white to-orange-50";
-  const textColor = highContrast ? "text-white" : "text-gray-800";
 
   return (
     <div className={`${bgColor} min-h-screen flex flex-col`}>
