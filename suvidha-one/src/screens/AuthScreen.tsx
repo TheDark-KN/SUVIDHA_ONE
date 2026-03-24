@@ -36,7 +36,7 @@ export const AuthScreen: React.FC<AuthScreenProps> = ({
   // Send OTP Mutation
   const sendOtpMutation = useMutation({
     mutationFn: async (phone: string) => {
-      const response = await api.auth.sendOtp({ mobile: phone, kiosk_id: kioskId });
+      const response = await api.auth.sendOtp({ phone, kiosk_id: kioskId });
       if (!response.success) {
         throw new Error(response.error || 'Failed to send OTP');
       }
@@ -56,7 +56,7 @@ export const AuthScreen: React.FC<AuthScreenProps> = ({
     mutationFn: async (otpValue: string) => {
       const otpString = otpValue.toString().padStart(6, '0');
       const response = await api.auth.verifyOtp({
-        mobile,
+        phone: `+91${mobile}`,
         otp: otpString,
         kiosk_id: kioskId,
       });

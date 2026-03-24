@@ -49,7 +49,7 @@ export interface ApiResult<T> {
 
 // Auth Types
 export interface SendOtpRequest {
-  mobile: string;
+  phone: string;
   kiosk_id?: string;
 }
 
@@ -59,7 +59,7 @@ export interface SendOtpResponse {
 }
 
 export interface VerifyOtpRequest {
-  mobile: string;
+  phone: string;
   otp: string;
   kiosk_id?: string;
 }
